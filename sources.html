@@ -3,16 +3,16 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Data semantics" href="semantics.html"><link rel="prev" title="Scikit-learn" href="sklearn/index.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Train from Parquet" href="demo.html"><link rel="prev" title="Train and predict" href="core/index.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
-        <title>Data sources - Khiops DuckDB 0.1.0 documentation</title>
+        <title>Data sources - Khiops DuckDB</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=b36df665" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=ac1e44f2" />
     
     
 
@@ -21,18 +21,78 @@
   body {
     --color-code-background: #f2f2f2;
   --color-code-foreground: #1e1e1e;
+  --color-brand-primary: #f16e00;
+  --color-brand-content: #000000;
+  --color-brand-visited: #000000;
+  --color-foreground-primary: #000000;
+  --color-foreground-secondary: #666666;
+  --color-foreground-muted: #666666;
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #eeeeee;
+  --color-background-hover: #dddddd;
+  --color-background-border: #cccccc;
+  --color-sidebar-background: #fafafa;
+  --color-sidebar-link-text--top-level: var(--color-brand-content);
+  --color-toc-item-text--active: var(--color-brand-content);
+  --color-admonition-title--note: var(--color-brand-primary);
+  --color-admonition-title-background--note: var(--color-background-secondary);
+  --color-inline-code-background: var(--color-background-secondary);
+  --color-inline-code-text: var(--color-foreground-primary);
+  --color-code-background: var(--color-background-secondary);
+  --font-stack: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-stack--monospace: ui-monospace, SFMono-Regular, Consolas, monospace;
   
   }
   @media not print {
     body[data-theme="dark"] {
       --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ff7900;
+  --color-brand-content: #ffffff;
+  --color-brand-visited: #ffffff;
+  --color-foreground-primary: #ffffff;
+  --color-foreground-secondary: #999999;
+  --color-foreground-muted: #999999;
+  --color-background-primary: #141414;
+  --color-background-secondary: #333333;
+  --color-background-hover: #666666;
+  --color-background-border: #666666;
+  --color-sidebar-background: #000000;
+  --color-sidebar-link-text--top-level: var(--color-brand-content);
+  --color-toc-item-text--active: var(--color-brand-content);
+  --color-admonition-title--note: var(--color-brand-primary);
+  --color-admonition-title-background--note: var(--color-background-secondary);
+  --color-inline-code-background: var(--color-background-secondary);
+  --color-inline-code-text: var(--color-foreground-primary);
+  --color-code-background: var(--color-background-secondary);
+  --font-stack: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-stack--monospace: ui-monospace, SFMono-Regular, Consolas, monospace;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
         --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ff7900;
+  --color-brand-content: #ffffff;
+  --color-brand-visited: #ffffff;
+  --color-foreground-primary: #ffffff;
+  --color-foreground-secondary: #999999;
+  --color-foreground-muted: #999999;
+  --color-background-primary: #141414;
+  --color-background-secondary: #333333;
+  --color-background-hover: #666666;
+  --color-background-border: #666666;
+  --color-sidebar-background: #000000;
+  --color-sidebar-link-text--top-level: var(--color-brand-content);
+  --color-toc-item-text--active: var(--color-brand-content);
+  --color-admonition-title--note: var(--color-brand-primary);
+  --color-admonition-title-background--note: var(--color-background-secondary);
+  --color-inline-code-background: var(--color-background-secondary);
+  --color-inline-code-text: var(--color-foreground-primary);
+  --color-code-background: var(--color-background-secondary);
+  --font-stack: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-stack--monospace: ui-monospace, SFMono-Regular, Consolas, monospace;
   
       }
     }
@@ -164,7 +224,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Khiops DuckDB 0.1.0 documentation</div></a>
+      <a href="index.html"><div class="brand">Khiops DuckDB</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -185,7 +245,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
-  <span class="sidebar-brand-text">Khiops DuckDB 0.1.0 documentation</span>
+  <span class="sidebar-brand-text">Khiops DuckDB</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -193,13 +253,16 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="core/index.html">Native Khiops workflows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sklearn/index.html">Scikit-learn</a></li>
+  <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="core/index.html">Train and predict</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Data sources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="semantics.html">Data semantics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="demo.html">DuckDB to Khiops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demo.html">Train from Parquet</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api.html">API reference</a><input aria-label="Toggle navigation of API reference" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="semantics.html">Data semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sklearn/index.html">Scikit-learn</a></li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -244,60 +307,57 @@
         <article role="main" id="furo-main-content">
           <section id="data-sources">
 <h1>Data sources<a class="headerlink" href="#data-sources" title="Link to this heading">¶</a></h1>
-<p>Anything DuckDB can expose as a relation can cross the same boundary. Source
-support depends on DuckDB and its extensions; this package adds no source-specific
-APIs and does not guarantee every external service is available on every platform.</p>
-<section id="files-and-python-objects">
-<h2>Files and Python objects<a class="headerlink" href="#files-and-python-objects" title="Link to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"data/*.csv"</span><span class="p">)</span>
-<span class="n">source</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="s2">"data/*.json"</span><span class="p">)</span>
-<span class="n">source</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s2">"data/**/*.parquet"</span><span class="p">,</span> <span class="n">hive_partitioning</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">source</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">from_df</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
-<span class="n">source</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">from_arrow</span><span class="p">(</span><span class="n">arrow_table</span><span class="p">)</span>
-<span class="n">source</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">"SELECT * FROM observations WHERE amount &gt; 0"</span><span class="p">)</span>
+<section id="files">
+<h2>Files<a class="headerlink" href="#files" title="Link to this heading">¶</a></h2>
+<p>Use paths, URLs or file globs for Parquet, CSV, TSV, JSON and JSONL.
+Switch formats without changing your training code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">khiops_duckdb</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_predictor</span>
+
+<span class="n">report</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">train_predictor</span><span class="p">(</span><span class="s2">"data/*.parquet"</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">"target"</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Use <code class="docutils literal notranslate"><span class="pre">con.register_filesystem(filesystem)</span></code> for supported fsspec filesystems.
-Install that filesystem’s dependencies separately.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">Source</span></code> for reader options or type overrides. For example, preserve
+leading zeros in a CSV identifier:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">khiops_duckdb</span><span class="w"> </span><span class="kn">import</span> <span class="n">Source</span>
+
+<span class="n">source</span> <span class="o">=</span> <span class="n">Source</span><span class="p">(</span><span class="s2">"data.csv"</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">"dtype"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"id"</span><span class="p">:</span> <span class="s2">"VARCHAR"</span><span class="p">}})</span>
+<span class="n">report</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">train_predictor</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">"target"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For an unknown file extension, specify <code class="docutils literal notranslate"><span class="pre">Source(path,</span> <span class="pre">format=&quot;csv&quot;)</span></code>.</p>
 </section>
-<section id="databases">
-<h2>Databases<a class="headerlink" href="#databases" title="Link to this heading">¶</a></h2>
-<p>Configure DuckDB once, then pass a relation as usual:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">con</span><span class="o">.</span><span class="n">install_extension</span><span class="p">(</span><span class="s2">"sqlite"</span><span class="p">)</span>
-<span class="n">con</span><span class="o">.</span><span class="n">load_extension</span><span class="p">(</span><span class="s2">"sqlite"</span><span class="p">)</span>
-<span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"ATTACH 'warehouse.sqlite' AS warehouse (TYPE sqlite, READ_ONLY)"</span><span class="p">)</span>
-<span class="n">source</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="s2">"warehouse.observations"</span><span class="p">)</span>
+<section id="databases-and-sql">
+<h2>Databases and SQL<a class="headerlink" href="#databases-and-sql" title="Link to this heading">¶</a></h2>
+<p>Filter or join with SQL, then train on the result. No intermediate file to
+manage, and no new connection or credential configuration:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">duckdb</span>
+
+<span class="k">with</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"warehouse.duckdb"</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">"SELECT * FROM customers WHERE active"</span><span class="p">)</span>
+    <span class="n">report</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">train_predictor</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">"target"</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>PostgreSQL and MySQL follow the same pattern with their DuckDB extensions:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">con</span><span class="o">.</span><span class="n">install_extension</span><span class="p">(</span><span class="s2">"postgres"</span><span class="p">)</span>
-<span class="n">con</span><span class="o">.</span><span class="n">load_extension</span><span class="p">(</span><span class="s2">"postgres"</span><span class="p">)</span>
-<span class="c1"># PGSERVICE names a configured libpq service; keep credentials out of code.</span>
-<span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
-    <span class="s2">"ATTACH '' AS warehouse (TYPE postgres, READ_ONLY)"</span>
+<p>Other databases use DuckDB extensions. Configure attachments and credentials on
+your connection first. For remote files, pass it with <code class="docutils literal notranslate"><span class="pre">connection=con</span></code>.
+See <a class="reference external" href="https://duckdb.org/docs/stable/data/overview.html">DuckDB data import</a>.</p>
+</section>
+<section id="multiple-tables">
+<h2>Multiple tables<a class="headerlink" href="#multiple-tables" title="Link to this heading">¶</a></h2>
+<p>Keep customers and orders as separate tables. Declare their keys with <code class="docutils literal notranslate"><span class="pre">Source</span></code>
+so Khiops can construct relational features, rather than flattening them yourself:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">report</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">train_predictor</span><span class="p">(</span>
+    <span class="n">Source</span><span class="p">(</span><span class="s2">"customers.parquet"</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,)),</span>
+    <span class="n">additional_tables</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"orders"</span><span class="p">:</span> <span class="n">Source</span><span class="p">(</span><span class="s2">"orders.parquet"</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="s2">"order_id"</span><span class="p">)),</span>
+    <span class="p">},</span>
+    <span class="n">target</span><span class="o">=</span><span class="s2">"target"</span><span class="p">,</span>
+    <span class="n">output_dir</span><span class="o">=</span><span class="s2">"results"</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">source</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">"SELECT * FROM warehouse.public.observations"</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Set <code class="docutils literal notranslate"><span class="pre">PGSERVICE</span></code> and configure its service file before connecting. For MySQL,
-use DuckDB’s <code class="docutils literal notranslate"><span class="pre">mysql</span></code> extension and its documented connection configuration.
-Live PostgreSQL/MySQL servers are not part of this repository’s automated tests;
-SQLite and attached DuckDB databases are.</p>
-</section>
-<section id="remote-files-and-object-stores">
-<h2>Remote files and object stores<a class="headerlink" href="#remote-files-and-object-stores" title="Link to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">con</span><span class="o">.</span><span class="n">install_extension</span><span class="p">(</span><span class="s2">"httpfs"</span><span class="p">)</span>
-<span class="n">con</span><span class="o">.</span><span class="n">load_extension</span><span class="p">(</span><span class="s2">"httpfs"</span><span class="p">)</span>
-<span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"CREATE SECRET (TYPE s3, PROVIDER credential_chain)"</span><span class="p">)</span>
-<span class="n">source</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s2">"s3://bucket/prefix/*.parquet"</span><span class="p">)</span>
-<span class="c1"># Or con.read_parquet("https://host.example/data.parquet").</span>
-</pre></div>
-</div>
-<p>Secrets and extension setup belong to your connection. The bridge never copies
-them into its output. Only load trusted extensions and execute trusted SQL.
-Errors propagate; a failed export removes its temporary files.</p>
-<p>See the official <a class="reference external" href="https://duckdb.org/docs/stable/data/overview.html">DuckDB data import documentation</a> and
-<a class="reference external" href="https://duckdb.org/docs/stable/extensions/overview.html">extension documentation</a>.</p>
+<p>Child keys start with their parent’s key. Main-table keys must be unique.
+Use <code class="docutils literal notranslate"><span class="pre">entity=True</span></code> for one-to-one tables and paths such as <code class="docutils literal notranslate"><span class="pre">&quot;orders/items&quot;</span></code>
+for nested tables. Not every native task supports multiple tables.</p>
 </section>
 </section>
 
@@ -306,23 +366,23 @@ Errors propagate; a failed export removes its temporary files.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="semantics.html">
+          <a class="next-page" href="demo.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Data semantics</div>
+                <div class="title">Train from Parquet</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="sklearn/index.html">
+          <a class="prev-page" href="core/index.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Scikit-learn</div>
+                <div class="title">Train and predict</div>
                 
               </div>
             </a>
@@ -357,9 +417,9 @@ Errors propagate; a failed export removes its temporary files.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Data sources</a><ul>
-<li><a class="reference internal" href="#files-and-python-objects">Files and Python objects</a></li>
-<li><a class="reference internal" href="#databases">Databases</a></li>
-<li><a class="reference internal" href="#remote-files-and-object-stores">Remote files and object stores</a></li>
+<li><a class="reference internal" href="#files">Files</a></li>
+<li><a class="reference internal" href="#databases-and-sql">Databases and SQL</a></li>
+<li><a class="reference internal" href="#multiple-tables">Multiple tables</a></li>
 </ul>
 </li>
 </ul>

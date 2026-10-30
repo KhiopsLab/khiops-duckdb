@@ -3,16 +3,16 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Scikit-learn" href="../sklearn/index.html"><link rel="prev" title="Khiops DuckDB" href="../index.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Data sources" href="../sources.html"><link rel="prev" title="Khiops DuckDB" href="../index.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
-        <title>Native Khiops workflows - Khiops DuckDB 0.1.0 documentation</title>
+        <title>Train and predict - Khiops DuckDB</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=b36df665" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ac1e44f2" />
     
     
 
@@ -21,18 +21,78 @@
   body {
     --color-code-background: #f2f2f2;
   --color-code-foreground: #1e1e1e;
+  --color-brand-primary: #f16e00;
+  --color-brand-content: #000000;
+  --color-brand-visited: #000000;
+  --color-foreground-primary: #000000;
+  --color-foreground-secondary: #666666;
+  --color-foreground-muted: #666666;
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #eeeeee;
+  --color-background-hover: #dddddd;
+  --color-background-border: #cccccc;
+  --color-sidebar-background: #fafafa;
+  --color-sidebar-link-text--top-level: var(--color-brand-content);
+  --color-toc-item-text--active: var(--color-brand-content);
+  --color-admonition-title--note: var(--color-brand-primary);
+  --color-admonition-title-background--note: var(--color-background-secondary);
+  --color-inline-code-background: var(--color-background-secondary);
+  --color-inline-code-text: var(--color-foreground-primary);
+  --color-code-background: var(--color-background-secondary);
+  --font-stack: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-stack--monospace: ui-monospace, SFMono-Regular, Consolas, monospace;
   
   }
   @media not print {
     body[data-theme="dark"] {
       --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ff7900;
+  --color-brand-content: #ffffff;
+  --color-brand-visited: #ffffff;
+  --color-foreground-primary: #ffffff;
+  --color-foreground-secondary: #999999;
+  --color-foreground-muted: #999999;
+  --color-background-primary: #141414;
+  --color-background-secondary: #333333;
+  --color-background-hover: #666666;
+  --color-background-border: #666666;
+  --color-sidebar-background: #000000;
+  --color-sidebar-link-text--top-level: var(--color-brand-content);
+  --color-toc-item-text--active: var(--color-brand-content);
+  --color-admonition-title--note: var(--color-brand-primary);
+  --color-admonition-title-background--note: var(--color-background-secondary);
+  --color-inline-code-background: var(--color-background-secondary);
+  --color-inline-code-text: var(--color-foreground-primary);
+  --color-code-background: var(--color-background-secondary);
+  --font-stack: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-stack--monospace: ui-monospace, SFMono-Regular, Consolas, monospace;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
         --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ff7900;
+  --color-brand-content: #ffffff;
+  --color-brand-visited: #ffffff;
+  --color-foreground-primary: #ffffff;
+  --color-foreground-secondary: #999999;
+  --color-foreground-muted: #999999;
+  --color-background-primary: #141414;
+  --color-background-secondary: #333333;
+  --color-background-hover: #666666;
+  --color-background-border: #666666;
+  --color-sidebar-background: #000000;
+  --color-sidebar-link-text--top-level: var(--color-brand-content);
+  --color-toc-item-text--active: var(--color-brand-content);
+  --color-admonition-title--note: var(--color-brand-primary);
+  --color-admonition-title-background--note: var(--color-background-secondary);
+  --color-inline-code-background: var(--color-background-secondary);
+  --color-inline-code-text: var(--color-foreground-primary);
+  --color-code-background: var(--color-background-secondary);
+  --font-stack: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-stack--monospace: ui-monospace, SFMono-Regular, Consolas, monospace;
   
       }
     }
@@ -164,7 +224,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Khiops DuckDB 0.1.0 documentation</div></a>
+      <a href="../index.html"><div class="brand">Khiops DuckDB</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -175,7 +235,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
       </label>
     </div>
@@ -185,7 +245,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
-  <span class="sidebar-brand-text">Khiops DuckDB 0.1.0 documentation</span>
+  <span class="sidebar-brand-text">Khiops DuckDB</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -193,13 +253,16 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Native Khiops workflows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../sklearn/index.html">Scikit-learn</a></li>
+  <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Train and predict</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sources.html">Data sources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../semantics.html">Data semantics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../demo.html">DuckDB to Khiops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../demo.html">Train from Parquet</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api.html">API reference</a><input aria-label="Toggle navigation of API reference" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../semantics.html">Data semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sklearn/index.html">Scikit-learn</a></li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -237,61 +300,36 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="native-khiops-workflows">
-<h1>Native Khiops workflows<a class="headerlink" href="#native-khiops-workflows" title="Link to this heading">¶</a></h1>
-<p>Use the generated dictionary and table arguments directly; there is no separate
-training API to learn. Keep the DuckDB connection open during materialization.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">duckdb</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">khiops.core</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">kh</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">khiops_duckdb</span><span class="w"> </span><span class="kn">import</span> <span class="n">materialize</span>
+          <section id="train-and-predict">
+<h1>Train and predict<a class="headerlink" href="#train-and-predict" title="Link to this heading">¶</a></h1>
+<p>Three calls take you from a data file to a reusable model, predictions and an
+evaluation report. No dictionary file or manual TSV export is needed:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">khiops_duckdb</span><span class="w"> </span><span class="kn">import</span> <span class="n">deploy_model</span><span class="p">,</span> <span class="n">evaluate_predictor</span><span class="p">,</span> <span class="n">train_predictor</span>
 
-<span class="k">with</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
-    <span class="n">source</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"observations.csv"</span><span class="p">)</span>
-    <span class="k">with</span> <span class="n">materialize</span><span class="p">(</span><span class="n">source</span><span class="p">)</span> <span class="k">as</span> <span class="n">data</span><span class="p">:</span>
-        <span class="n">_</span><span class="p">,</span> <span class="n">model_path</span> <span class="o">=</span> <span class="n">kh</span><span class="o">.</span><span class="n">train_predictor</span><span class="p">(</span>
-            <span class="o">**</span><span class="n">data</span><span class="o">.</span><span class="n">core_args</span><span class="p">,</span>
-            <span class="n">target_variable</span><span class="o">=</span><span class="s2">"target"</span><span class="p">,</span>
-            <span class="n">analysis_report_file_path</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">"report.khj"</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()),</span>
-        <span class="p">)</span>
-        <span class="n">kh</span><span class="o">.</span><span class="n">deploy_model</span><span class="p">(</span>
-            <span class="n">model_path</span><span class="p">,</span>
-            <span class="s2">"SNB_main_table"</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">data</span><span class="o">.</span><span class="n">table_args</span><span class="p">,</span>
-            <span class="n">output_data_table_path</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">"predictions.tsv"</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()),</span>
-        <span class="p">)</span>
+<span class="n">report</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">train_predictor</span><span class="p">(</span>
+    <span class="s2">"train.parquet"</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">"target"</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="s2">"results/train"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">deploy_model</span><span class="p">(</span>
+    <span class="s2">"test.parquet"</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="s2">"results/predict"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">evaluation</span> <span class="o">=</span> <span class="n">evaluate_predictor</span><span class="p">(</span>
+    <span class="s2">"test.parquet"</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="s2">"results/evaluate"</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
-<p>For unsupervised preparation, use <code class="docutils literal notranslate"><span class="pre">target_variable=&quot;&quot;</span></code>. The same dictionary,
-main file and additional-table mapping can be passed to Khiops’ other table-based
-core functions, including coclustering. Functions without common table parameters
-can use <code class="docutils literal notranslate"><span class="pre">data.dictionary_domain</span></code> and <code class="docutils literal notranslate"><span class="pre">data.data_table_path</span></code> individually.</p>
-<section id="multi-table-schemas">
-<h2>Multi-table schemas<a class="headerlink" href="#multi-table-schemas" title="Link to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">khiops_duckdb</span><span class="w"> </span><span class="kn">import</span> <span class="n">Table</span><span class="p">,</span> <span class="n">materialize</span>
-
-<span class="k">with</span> <span class="n">materialize</span><span class="p">(</span>
-    <span class="n">Table</span><span class="p">(</span><span class="n">con</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="s2">"customers"</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,)),</span>
-    <span class="n">additional_tables</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">"orders"</span><span class="p">:</span> <span class="n">Table</span><span class="p">(</span><span class="n">con</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="s2">"orders"</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="s2">"order_id"</span><span class="p">)),</span>
-        <span class="s2">"orders/items"</span><span class="p">:</span> <span class="n">Table</span><span class="p">(</span><span class="n">con</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="s2">"items"</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="s2">"order_id"</span><span class="p">)),</span>
-        <span class="s2">"profile"</span><span class="p">:</span> <span class="n">Table</span><span class="p">(</span><span class="n">con</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="s2">"profile"</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,),</span> <span class="n">entity</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="p">},</span>
-<span class="p">)</span> <span class="k">as</span> <span class="n">data</span><span class="p">:</span>
-    <span class="c1"># Add derived variables to data.dictionary_domain, or use data.core_args.</span>
-    <span class="o">...</span>
-</pre></div>
-</div>
-<p>Each child key starts with its parent’s key, using the same column names.
-Main-table and entity keys are unique. A one-to-many table may repeat its key.
-Leaf table names must be globally unique and cannot shadow a parent column.
-Declare all parents; mapping insertion order does not matter.</p>
-</section>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">&quot;target&quot;</span></code> with the column you want to predict.
+The returned values are paths to the saved report, model and output files.
+Without <code class="docutils literal notranslate"><span class="pre">output_dir</span></code>, each call creates a unique folder in <code class="docutils literal notranslate"><span class="pre">khiops-results/</span></code>.</p>
+<p>Native Khiops options work as keyword arguments, for example <code class="docutils literal notranslate"><span class="pre">max_cores=1</span></code>.
+You keep the standard Khiops reports and model files, not a new model format.
+The same file-or-relation interface supports recoding, coclustering, and all
+other table-based core tasks; see <a class="reference internal" href="../api.html"><span class="doc">API reference</span></a>.</p>
+<p>For database tables, SQL queries or multiple tables, see <a class="reference internal" href="../sources.html"><span class="doc">Data sources</span></a>.</p>
 </section>
 
         </article>
@@ -299,12 +337,12 @@ Declare all parents; mapping insertion order does not matter.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../sklearn/index.html">
+          <a class="next-page" href="../sources.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Scikit-learn</div>
+                <div class="title">Data sources</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -337,27 +375,8 @@ Declare all parents; mapping insertion order does not matter.</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            On this page
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">Native Khiops workflows</a><ul>
-<li><a class="reference internal" href="#multi-table-schemas">Multi-table schemas</a></li>
-</ul>
-</li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>

@@ -3,16 +3,16 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="prev" title="API" href="api.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="API reference" href="api.html"><link rel="prev" title="Data sources" href="sources.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
-        <title>DuckDB to Khiops - Khiops DuckDB 0.1.0 documentation</title>
+        <title>Train from Parquet - Khiops DuckDB</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=b36df665" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=ac1e44f2" />
     
     
 
@@ -21,18 +21,78 @@
   body {
     --color-code-background: #f2f2f2;
   --color-code-foreground: #1e1e1e;
+  --color-brand-primary: #f16e00;
+  --color-brand-content: #000000;
+  --color-brand-visited: #000000;
+  --color-foreground-primary: #000000;
+  --color-foreground-secondary: #666666;
+  --color-foreground-muted: #666666;
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #eeeeee;
+  --color-background-hover: #dddddd;
+  --color-background-border: #cccccc;
+  --color-sidebar-background: #fafafa;
+  --color-sidebar-link-text--top-level: var(--color-brand-content);
+  --color-toc-item-text--active: var(--color-brand-content);
+  --color-admonition-title--note: var(--color-brand-primary);
+  --color-admonition-title-background--note: var(--color-background-secondary);
+  --color-inline-code-background: var(--color-background-secondary);
+  --color-inline-code-text: var(--color-foreground-primary);
+  --color-code-background: var(--color-background-secondary);
+  --font-stack: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-stack--monospace: ui-monospace, SFMono-Regular, Consolas, monospace;
   
   }
   @media not print {
     body[data-theme="dark"] {
       --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ff7900;
+  --color-brand-content: #ffffff;
+  --color-brand-visited: #ffffff;
+  --color-foreground-primary: #ffffff;
+  --color-foreground-secondary: #999999;
+  --color-foreground-muted: #999999;
+  --color-background-primary: #141414;
+  --color-background-secondary: #333333;
+  --color-background-hover: #666666;
+  --color-background-border: #666666;
+  --color-sidebar-background: #000000;
+  --color-sidebar-link-text--top-level: var(--color-brand-content);
+  --color-toc-item-text--active: var(--color-brand-content);
+  --color-admonition-title--note: var(--color-brand-primary);
+  --color-admonition-title-background--note: var(--color-background-secondary);
+  --color-inline-code-background: var(--color-background-secondary);
+  --color-inline-code-text: var(--color-foreground-primary);
+  --color-code-background: var(--color-background-secondary);
+  --font-stack: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-stack--monospace: ui-monospace, SFMono-Regular, Consolas, monospace;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
         --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ff7900;
+  --color-brand-content: #ffffff;
+  --color-brand-visited: #ffffff;
+  --color-foreground-primary: #ffffff;
+  --color-foreground-secondary: #999999;
+  --color-foreground-muted: #999999;
+  --color-background-primary: #141414;
+  --color-background-secondary: #333333;
+  --color-background-hover: #666666;
+  --color-background-border: #666666;
+  --color-sidebar-background: #000000;
+  --color-sidebar-link-text--top-level: var(--color-brand-content);
+  --color-toc-item-text--active: var(--color-brand-content);
+  --color-admonition-title--note: var(--color-brand-primary);
+  --color-admonition-title-background--note: var(--color-background-secondary);
+  --color-inline-code-background: var(--color-background-secondary);
+  --color-inline-code-text: var(--color-foreground-primary);
+  --color-code-background: var(--color-background-secondary);
+  --font-stack: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-stack--monospace: ui-monospace, SFMono-Regular, Consolas, monospace;
   
       }
     }
@@ -164,7 +224,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Khiops DuckDB 0.1.0 documentation</div></a>
+      <a href="index.html"><div class="brand">Khiops DuckDB</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -185,7 +245,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
-  <span class="sidebar-brand-text">Khiops DuckDB 0.1.0 documentation</span>
+  <span class="sidebar-brand-text">Khiops DuckDB</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -193,13 +253,16 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="core/index.html">Native Khiops workflows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sklearn/index.html">Scikit-learn</a></li>
+  <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="core/index.html">Train and predict</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sources.html">Data sources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="semantics.html">Data semantics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">DuckDB to Khiops</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Train from Parquet</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api.html">API reference</a><input aria-label="Toggle navigation of API reference" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="semantics.html">Data semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sklearn/index.html">Scikit-learn</a></li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -242,83 +305,41 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="duckdb-to-khiops">
-<h1>DuckDB to Khiops<a class="headerlink" href="#duckdb-to-khiops" title="Link to this heading">¶</a></h1>
-<p>Swap the SQL relation for a file reader or an attached database.</p>
+          <section id="train-from-parquet">
+<h1>Train from Parquet<a class="headerlink" href="#train-from-parquet" title="Link to this heading">¶</a></h1>
+<p>Create a small Parquet file, then train with the high-level API.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">duckdb</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">khiops_duckdb</span><span class="w"> </span><span class="kn">import</span> <span class="n">Table</span><span class="p">,</span> <span class="n">materialize</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">duckdb</span>
 
+<span class="n">workdir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"_build/demo"</span><span class="p">)</span>
+<span class="n">workdir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">parquet_path</span> <span class="o">=</span> <span class="n">workdir</span> <span class="o">/</span> <span class="s2">"observations.parquet"</span>
 <span class="k">with</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
-    <span class="n">source</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"datasets/observations.csv"</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s2">"id"</span><span class="p">:</span> <span class="s2">"VARCHAR"</span><span class="p">})</span>
-    <span class="k">with</span> <span class="n">materialize</span><span class="p">(</span><span class="n">Table</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,)))</span> <span class="k">as</span> <span class="n">data</span><span class="p">:</span>
-        <span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">to_sklearn</span><span class="p">()</span>
-<span class="n">X</span><span class="p">[</span><span class="s2">"main_table"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">con</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+        <span class="s2">"datasets/observations.csv"</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s2">"id"</span><span class="p">:</span> <span class="s2">"VARCHAR"</span><span class="p">,</span> <span class="s2">"target"</span><span class="p">:</span> <span class="s2">"VARCHAR"</span><span class="p">},</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">write_parquet</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parquet_path</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>id</th>
-      <th>signal</th>
-      <th>target</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>001</td>
-      <td>0.0</td>
-      <td>false</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>002</td>
-      <td>1.0</td>
-      <td>true</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>003</td>
-      <td>0.0</td>
-      <td>false</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>004</td>
-      <td>1.0</td>
-      <td>true</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">khiops.sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">KhiopsClassifier</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">khiops_duckdb</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_predictor</span>
 
-<span class="n">y</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="s2">"main_table"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"target"</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">KhiopsClassifier</span><span class="p">(</span><span class="n">n_trees</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">report</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">train_predictor</span><span class="p">(</span>
+    <span class="n">parquet_path</span><span class="p">,</span>
+    <span class="n">target</span><span class="o">=</span><span class="s2">"target"</span><span class="p">,</span>
+    <span class="n">output_dir</span><span class="o">=</span><span class="n">workdir</span> <span class="o">/</span> <span class="s2">"results"</span><span class="p">,</span>
+    <span class="n">max_trees</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">max_cores</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">assert</span> <span class="n">Path</span><span class="p">(</span><span class="n">report</span><span class="p">)</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">Path</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span>
+<span class="p">{</span><span class="s2">"report"</span><span class="p">:</span> <span class="n">report</span><span class="p">,</span> <span class="s2">"model"</span><span class="p">:</span> <span class="n">model</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -327,11 +348,14 @@
   self._initialize_default_samples_dir()
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/work/khiops-duckdb/khiops-duckdb/.venv/lib/python3.12/site-packages/khiops/core/internals/runner.py:1136: UserWarning: Sample datasets location does not exist (/home/runner/khiops_data/samples). Execute the kh-download-datasets script or the khiops.tools.download_datasets function to download them.
-  self._initialize_default_samples_dir()
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/work/khiops-duckdb/khiops-duckdb/.venv/lib/python3.12/site-packages/khiops/core/internals/runner.py:827: UserWarning: Khiops ended correctly but there were minor issues:
+Warnings in log:
+Line 4: warning : Classifier Selective Naive Bayes : No informative input variable available
+  warnings.warn(error_msg.rstrip())
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([False,  True, False,  True])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'report': '/home/runner/work/khiops-duckdb/khiops-duckdb/docs/_build/demo/results/report.khj',
+ 'model': '/home/runner/work/khiops-duckdb/khiops-duckdb/docs/_build/demo/results/report.model.kdic'}
 </pre></div>
 </div>
 </div>
@@ -343,15 +367,23 @@
       <footer>
         
         <div class="related-pages">
-          
-          <a class="prev-page" href="api.html">
+          <a class="next-page" href="api.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">API reference</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="sources.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">API</div>
+                <div class="title">Data sources</div>
                 
               </div>
             </a>

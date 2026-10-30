@@ -4,13 +4,13 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="#"><link rel="search" title="Search" href="search.html">
 
-    <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 --><title>Index - Khiops DuckDB 0.1.0 documentation</title>
+    <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 --><title>Index - Khiops DuckDB</title>
 <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=b36df665" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=ac1e44f2" />
     
     
 
@@ -19,18 +19,78 @@
   body {
     --color-code-background: #f2f2f2;
   --color-code-foreground: #1e1e1e;
+  --color-brand-primary: #f16e00;
+  --color-brand-content: #000000;
+  --color-brand-visited: #000000;
+  --color-foreground-primary: #000000;
+  --color-foreground-secondary: #666666;
+  --color-foreground-muted: #666666;
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #eeeeee;
+  --color-background-hover: #dddddd;
+  --color-background-border: #cccccc;
+  --color-sidebar-background: #fafafa;
+  --color-sidebar-link-text--top-level: var(--color-brand-content);
+  --color-toc-item-text--active: var(--color-brand-content);
+  --color-admonition-title--note: var(--color-brand-primary);
+  --color-admonition-title-background--note: var(--color-background-secondary);
+  --color-inline-code-background: var(--color-background-secondary);
+  --color-inline-code-text: var(--color-foreground-primary);
+  --color-code-background: var(--color-background-secondary);
+  --font-stack: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-stack--monospace: ui-monospace, SFMono-Regular, Consolas, monospace;
   
   }
   @media not print {
     body[data-theme="dark"] {
       --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ff7900;
+  --color-brand-content: #ffffff;
+  --color-brand-visited: #ffffff;
+  --color-foreground-primary: #ffffff;
+  --color-foreground-secondary: #999999;
+  --color-foreground-muted: #999999;
+  --color-background-primary: #141414;
+  --color-background-secondary: #333333;
+  --color-background-hover: #666666;
+  --color-background-border: #666666;
+  --color-sidebar-background: #000000;
+  --color-sidebar-link-text--top-level: var(--color-brand-content);
+  --color-toc-item-text--active: var(--color-brand-content);
+  --color-admonition-title--note: var(--color-brand-primary);
+  --color-admonition-title-background--note: var(--color-background-secondary);
+  --color-inline-code-background: var(--color-background-secondary);
+  --color-inline-code-text: var(--color-foreground-primary);
+  --color-code-background: var(--color-background-secondary);
+  --font-stack: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-stack--monospace: ui-monospace, SFMono-Regular, Consolas, monospace;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
         --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ff7900;
+  --color-brand-content: #ffffff;
+  --color-brand-visited: #ffffff;
+  --color-foreground-primary: #ffffff;
+  --color-foreground-secondary: #999999;
+  --color-foreground-muted: #999999;
+  --color-background-primary: #141414;
+  --color-background-secondary: #333333;
+  --color-background-hover: #666666;
+  --color-background-border: #666666;
+  --color-sidebar-background: #000000;
+  --color-sidebar-link-text--top-level: var(--color-brand-content);
+  --color-toc-item-text--active: var(--color-brand-content);
+  --color-admonition-title--note: var(--color-brand-primary);
+  --color-admonition-title-background--note: var(--color-background-secondary);
+  --color-inline-code-background: var(--color-background-secondary);
+  --color-inline-code-text: var(--color-foreground-primary);
+  --color-code-background: var(--color-background-secondary);
+  --font-stack: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-stack--monospace: ui-monospace, SFMono-Regular, Consolas, monospace;
   
       }
     }
@@ -162,7 +222,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Khiops DuckDB 0.1.0 documentation</div></a>
+      <a href="index.html"><div class="brand">Khiops DuckDB</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -183,7 +243,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
-  <span class="sidebar-brand-text">Khiops DuckDB 0.1.0 documentation</span>
+  <span class="sidebar-brand-text">Khiops DuckDB</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -191,13 +251,16 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul>
-<li class="toctree-l1"><a class="reference internal" href="core/index.html">Native Khiops workflows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sklearn/index.html">Scikit-learn</a></li>
+  <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="core/index.html">Train and predict</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sources.html">Data sources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="semantics.html">Data semantics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="demo.html">DuckDB to Khiops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demo.html">Train from Parquet</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api.html">API reference</a><input aria-label="Toggle navigation of API reference" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="semantics.html">Data semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sklearn/index.html">Scikit-learn</a></li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -233,13 +296,27 @@
           
 <section class="genindex-section">
   <h1 id="index">Index</h1>
-  <div class="genindex-jumpbox"><a href="#C"><strong>C</strong></a> | <a href="#D"><strong>D</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#T"><strong>T</strong></a></div>
+  <div class="genindex-jumpbox"><a href="#B"><strong>B</strong></a> | <a href="#C"><strong>C</strong></a> | <a href="#D"><strong>D</strong></a> | <a href="#E"><strong>E</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#T"><strong>T</strong></a></div>
 </section>
+<section id="B" class="genindex-section">
+  <h2>B</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api.html#khiops_duckdb.core.build_dictionary_from_data_table">build_dictionary_from_data_table() (in module khiops_duckdb.core)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
 <section id="C" class="genindex-section">
   <h2>C</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="api.html#khiops_duckdb.Dataset.core_args">core_args (khiops_duckdb.Dataset property)</a>
+        <li><a href="api.html#khiops_duckdb.core.check_database">check_database() (in module khiops_duckdb.core)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api.html#khiops_duckdb.Dataset.core_args">core_args (Dataset attribute)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -250,6 +327,30 @@
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api.html#khiops_duckdb.Dataset">Dataset (class in khiops_duckdb)</a>
+</li>
+        <li><a href="api.html#khiops_duckdb.core.deploy_coclustering">deploy_coclustering() (in module khiops_duckdb.core)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api.html#khiops_duckdb.core.deploy_model">deploy_model() (in module khiops_duckdb.core)</a>
+</li>
+        <li><a href="api.html#khiops_duckdb.core.deploy_predictor_for_metrics">deploy_predictor_for_metrics() (in module khiops_duckdb.core)</a>
+</li>
+        <li><a href="api.html#khiops_duckdb.core.detect_data_table_format">detect_data_table_format() (in module khiops_duckdb.core)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="E" class="genindex-section">
+  <h2>E</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api.html#khiops_duckdb.core.evaluate_predictor">evaluate_predictor() (in module khiops_duckdb.core)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api.html#khiops_duckdb.core.extract_keys_from_data_table">extract_keys_from_data_table() (in module khiops_duckdb.core)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -265,17 +366,39 @@
   </tr></table>
 </section>
 
+<section id="S" class="genindex-section">
+  <h2>S</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api.html#khiops_duckdb.core.sort_data_table">sort_data_table() (in module khiops_duckdb.core)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api.html#khiops_duckdb.Source">Source (class in khiops_duckdb)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
 <section id="T" class="genindex-section">
   <h2>T</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api.html#khiops_duckdb.Table">Table (class in khiops_duckdb)</a>
 </li>
+        <li><a href="api.html#khiops_duckdb.Dataset.table_args">table_args (Dataset attribute)</a>
+</li>
+        <li><a href="api.html#khiops_duckdb.Dataset.to_sklearn">to_sklearn() (Dataset method)</a>
+</li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="api.html#khiops_duckdb.Dataset.table_args">table_args (khiops_duckdb.Dataset property)</a>
+        <li><a href="api.html#khiops_duckdb.core.train_coclustering">train_coclustering() (in module khiops_duckdb.core)</a>
 </li>
-        <li><a href="api.html#khiops_duckdb.Dataset.to_sklearn">to_sklearn() (khiops_duckdb.Dataset method)</a>
+        <li><a href="api.html#khiops_duckdb.core.train_instance_variable_coclustering">train_instance_variable_coclustering() (in module khiops_duckdb.core)</a>
+</li>
+        <li><a href="api.html#khiops_duckdb.core.train_predictor">train_predictor() (in module khiops_duckdb.core)</a>
+</li>
+        <li><a href="api.html#khiops_duckdb.core.train_recoder">train_recoder() (in module khiops_duckdb.core)</a>
 </li>
     </ul></td>
   </tr></table>

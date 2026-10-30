@@ -3,16 +3,16 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="DuckDB to Khiops" href="demo.html"><link rel="prev" title="Data semantics" href="semantics.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Data semantics" href="semantics.html"><link rel="prev" title="Train from Parquet" href="demo.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
-        <title>API - Khiops DuckDB 0.1.0 documentation</title>
+        <title>API reference - Khiops DuckDB</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=b36df665" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=ac1e44f2" />
     
     
 
@@ -21,18 +21,78 @@
   body {
     --color-code-background: #f2f2f2;
   --color-code-foreground: #1e1e1e;
+  --color-brand-primary: #f16e00;
+  --color-brand-content: #000000;
+  --color-brand-visited: #000000;
+  --color-foreground-primary: #000000;
+  --color-foreground-secondary: #666666;
+  --color-foreground-muted: #666666;
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #eeeeee;
+  --color-background-hover: #dddddd;
+  --color-background-border: #cccccc;
+  --color-sidebar-background: #fafafa;
+  --color-sidebar-link-text--top-level: var(--color-brand-content);
+  --color-toc-item-text--active: var(--color-brand-content);
+  --color-admonition-title--note: var(--color-brand-primary);
+  --color-admonition-title-background--note: var(--color-background-secondary);
+  --color-inline-code-background: var(--color-background-secondary);
+  --color-inline-code-text: var(--color-foreground-primary);
+  --color-code-background: var(--color-background-secondary);
+  --font-stack: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-stack--monospace: ui-monospace, SFMono-Regular, Consolas, monospace;
   
   }
   @media not print {
     body[data-theme="dark"] {
       --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ff7900;
+  --color-brand-content: #ffffff;
+  --color-brand-visited: #ffffff;
+  --color-foreground-primary: #ffffff;
+  --color-foreground-secondary: #999999;
+  --color-foreground-muted: #999999;
+  --color-background-primary: #141414;
+  --color-background-secondary: #333333;
+  --color-background-hover: #666666;
+  --color-background-border: #666666;
+  --color-sidebar-background: #000000;
+  --color-sidebar-link-text--top-level: var(--color-brand-content);
+  --color-toc-item-text--active: var(--color-brand-content);
+  --color-admonition-title--note: var(--color-brand-primary);
+  --color-admonition-title-background--note: var(--color-background-secondary);
+  --color-inline-code-background: var(--color-background-secondary);
+  --color-inline-code-text: var(--color-foreground-primary);
+  --color-code-background: var(--color-background-secondary);
+  --font-stack: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-stack--monospace: ui-monospace, SFMono-Regular, Consolas, monospace;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
         --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #ff7900;
+  --color-brand-content: #ffffff;
+  --color-brand-visited: #ffffff;
+  --color-foreground-primary: #ffffff;
+  --color-foreground-secondary: #999999;
+  --color-foreground-muted: #999999;
+  --color-background-primary: #141414;
+  --color-background-secondary: #333333;
+  --color-background-hover: #666666;
+  --color-background-border: #666666;
+  --color-sidebar-background: #000000;
+  --color-sidebar-link-text--top-level: var(--color-brand-content);
+  --color-toc-item-text--active: var(--color-brand-content);
+  --color-admonition-title--note: var(--color-brand-primary);
+  --color-admonition-title-background--note: var(--color-background-secondary);
+  --color-inline-code-background: var(--color-background-secondary);
+  --color-inline-code-text: var(--color-foreground-primary);
+  --color-code-background: var(--color-background-secondary);
+  --font-stack: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-stack--monospace: ui-monospace, SFMono-Regular, Consolas, monospace;
   
       }
     }
@@ -164,7 +224,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Khiops DuckDB 0.1.0 documentation</div></a>
+      <a href="index.html"><div class="brand">Khiops DuckDB</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -185,7 +245,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
-  <span class="sidebar-brand-text">Khiops DuckDB 0.1.0 documentation</span>
+  <span class="sidebar-brand-text">Khiops DuckDB</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -193,13 +253,16 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="core/index.html">Native Khiops workflows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sklearn/index.html">Scikit-learn</a></li>
+  <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="core/index.html">Train and predict</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sources.html">Data sources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="semantics.html">Data semantics</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="demo.html">DuckDB to Khiops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demo.html">Train from Parquet</a></li>
+<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">API reference</a><input aria-label="Toggle navigation of API reference" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="semantics.html">Data semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sklearn/index.html">Scikit-learn</a></li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -242,11 +305,278 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="api">
-<h1>API<a class="headerlink" href="#api" title="Link to this heading">¶</a></h1>
+          <section id="api-reference">
+<h1>API reference<a class="headerlink" href="#api-reference" title="Link to this heading">¶</a></h1>
+<p>Functions you call. Objects you configure. Files you keep.
+Import high-level functions from <code class="docutils literal notranslate"><span class="pre">khiops_duckdb</span></code> or <code class="docutils literal notranslate"><span class="pre">khiops_duckdb.core</span></code>.</p>
+<p class="api-nav"><a class="reference internal" href="#api-sources"><span class="std std-ref">Sources</span></a>
+<a class="reference internal" href="#api-training"><span class="std std-ref">Training</span></a>
+<a class="reference internal" href="#api-deployment"><span class="std std-ref">Deployment</span></a>
+<a class="reference internal" href="#api-tables"><span class="std std-ref">Table utilities</span></a>
+<a class="reference internal" href="#api-advanced"><span class="std std-ref">Advanced</span></a></p>
+<section id="shared-arguments">
+<span id="api-objects"></span><h2>Shared arguments<a class="headerlink" href="#shared-arguments" title="Link to this heading">¶</a></h2>
+<p>All high-level functions accept:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">source</span></code>: a path, URL, file glob, DuckDB relation,
+<a class="reference internal" href="#khiops_duckdb.Source" title="khiops_duckdb.Source"><code class="xref py py-class docutils literal notranslate"><span class="pre">Source</span></code></a> or <a class="reference internal" href="#khiops_duckdb.Table" title="khiops_duckdb.Table"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">connection=None</span></code>: an existing DuckDB connection for file readers,
+extensions and credentials. It stays open after the call.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">output_dir=None</span></code>: where default output files are saved. Without it, each
+file-producing call creates a unique directory under <code class="docutils literal notranslate"><span class="pre">khiops-results/</span></code>.
+Explicit native output paths take precedence.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">**options</span></code>: native Khiops task options. The signatures below expand the
+task-specific keywords you will usually need.</p></li>
+</ul>
+<p>Training, model deployment and evaluation also accept
+<code class="docutils literal notranslate"><span class="pre">additional_tables={path:</span> <span class="pre">source,</span> <span class="pre">...}</span></code> where the native task supports it.
+See <a class="reference internal" href="sources.html"><span class="doc">Data sources</span></a> for keys and multi-table schemas.</p>
+<p><code class="docutils literal notranslate"><span class="pre">target</span></code> aliases <code class="docutils literal notranslate"><span class="pre">target_variable</span></code>; <code class="docutils literal notranslate"><span class="pre">model</span></code> aliases
+<code class="docutils literal notranslate"><span class="pre">dictionary_file_path_or_domain</span></code>. Supply only one spelling.
+An ambiguous model dictionary needs an explicit <code class="docutils literal notranslate"><span class="pre">dictionary_name</span></code>.
+Input-format arguments are managed by the bridge; file-reader settings belong
+in <a class="reference internal" href="#khiops_duckdb.Source" title="khiops_duckdb.Source"><code class="xref py py-class docutils literal notranslate"><span class="pre">Source</span></code></a>.</p>
+<p>Outputs survive the call; temporary input files do not. Native errors propagate.</p>
+</section>
+<section id="configure-a-source">
+<span id="api-sources"></span><h2>Configure a source<a class="headerlink" href="#configure-a-source" title="Link to this heading">¶</a></h2>
+<p>Most calls only need a filename. Use <code class="docutils literal notranslate"><span class="pre">Source</span></code> when you need keys, type overrides
+or reader options:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">khiops_duckdb</span><span class="w"> </span><span class="kn">import</span> <span class="n">Source</span>
+
+<span class="n">customers</span> <span class="o">=</span> <span class="n">Source</span><span class="p">(</span><span class="s2">"customers.parquet"</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,))</span>
+<span class="n">comments</span> <span class="o">=</span> <span class="n">Source</span><span class="p">(</span><span class="s2">"comments.csv"</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="p">{</span><span class="s2">"body"</span><span class="p">:</span> <span class="s2">"Text"</span><span class="p">})</span>
+<span class="n">export</span> <span class="o">=</span> <span class="n">Source</span><span class="p">(</span><span class="s2">"data.export"</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"csv"</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">"delimiter"</span><span class="p">:</span> <span class="s2">"|"</span><span class="p">})</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="khiops_duckdb.Source">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key=()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">types=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entity=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#khiops_duckdb.Source" title="Link to this definition">¶</a></dt>
+<dd><p>Décrit une source fichier ou une relation et son schéma Khiops.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>str</em><em> | </em><em>PathLike</em><em>[</em><em>str</em><em>] </em><em>| </em><em>DuckDBPyRelation</em>) – Chemin, URL, motif de fichiers ou relation DuckDB.</p></li>
+<li><p><strong>key</strong> (<em>Sequence</em><em>[</em><em>str</em><em>]</em>) – Colonnes de clé, dans l’ordre de la hiérarchie.</p></li>
+<li><p><strong>types</strong> (<em>Mapping</em><em>[</em><em>str</em><em>, </em><em>Literal</em><em>[</em><em>'Categorical'</em><em>, </em><em>'Numerical'</em><em>, </em><em>'Text'</em><em>, </em><em>'Date'</em><em>, </em><em>'Time'</em><em>, </em><em>'Timestamp'</em><em>]</em><em>]</em>) – Types Khiops à imposer à certaines colonnes.</p></li>
+<li><p><strong>entity</strong> (<em>bool</em>) – Relation un-à-un avec le parent.</p></li>
+<li><p><strong>format</strong> (<em>Literal</em><em>[</em><em>'csv'</em><em>, </em><em>'json'</em><em>, </em><em>'parquet'</em><em>] </em><em>| </em><em>None</em>) – Format explicite pour les fichiers sans extension reconnue.</p></li>
+<li><p><strong>options</strong> (<em>Mapping</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Options transmises au lecteur DuckDB, sans modification.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p><code class="docutils literal notranslate"><span class="pre">types</span></code> accepts <code class="docutils literal notranslate"><span class="pre">Categorical</span></code>, <code class="docutils literal notranslate"><span class="pre">Numerical</span></code>, <code class="docutils literal notranslate"><span class="pre">Text</span></code>, <code class="docutils literal notranslate"><span class="pre">Date</span></code>, <code class="docutils literal notranslate"><span class="pre">Time</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Timestamp</span></code>. <code class="docutils literal notranslate"><span class="pre">format</span></code> is <code class="docutils literal notranslate"><span class="pre">&quot;csv&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;json&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;parquet&quot;</span></code>.
+The default mappings are independent empty dictionaries for each instance.</p>
+</section>
+<section id="train-models">
+<span id="api-training"></span><h2>Train models<a class="headerlink" href="#train-models" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="khiops_duckdb.core.train_predictor">
+<span class="sig-name descname"><span class="pre">train_predictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#khiops_duckdb.core.train_predictor" title="Link to this definition">¶</a></dt>
+<dd><p>Train a supervised predictor, or prepare data without a target.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>target</strong> – Target column name. Use <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code> for unsupervised preparation.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">(report_path,</span> <span class="pre">model_path)</span></code>. The model path is <code class="docutils literal notranslate"><span class="pre">None</span></code> when the
+target is empty.</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">report</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">train_predictor</span><span class="p">(</span>
+    <span class="s2">"train.parquet"</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">"churn"</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="s2">"results/train"</span><span class="p">,</span>
+    <span class="n">max_cores</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="khiops_duckdb.core.train_recoder">
+<span class="sig-name descname"><span class="pre">train_recoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#khiops_duckdb.core.train_recoder" title="Link to this definition">¶</a></dt>
+<dd><p>Train a recoding model for transforming data into engineered features.
+Omitting <code class="docutils literal notranslate"><span class="pre">target</span></code> runs an unsupervised recoding workflow.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">(report_path,</span> <span class="pre">recoder_dictionary_path)</span></code>. Use
+<a class="reference internal" href="#khiops_duckdb.core.deploy_model" title="khiops_duckdb.core.deploy_model"><code class="xref py py-func docutils literal notranslate"><span class="pre">deploy_model()</span></code></a> to apply the recoder.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="khiops_duckdb.core.train_coclustering">
+<span class="sig-name descname"><span class="pre">train_coclustering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">coclustering_variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#khiops_duckdb.core.train_coclustering" title="Link to this definition">¶</a></dt>
+<dd><p>Discover groups across two to ten selected variables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>coclustering_variables</strong> – List of column names to cocluster.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Coclustering report path (<code class="docutils literal notranslate"><span class="pre">.khcj</span></code>).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="khiops_duckdb.core.train_instance_variable_coclustering">
+<span class="sig-name descname"><span class="pre">train_instance_variable_coclustering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#khiops_duckdb.core.train_instance_variable_coclustering" title="Link to this definition">¶</a></dt>
+<dd><p>Train an instance-variable coclustering model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Coclustering report path (<code class="docutils literal notranslate"><span class="pre">.khcj</span></code>).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="predict-and-evaluate">
+<span id="api-deployment"></span><h2>Predict and evaluate<a class="headerlink" href="#predict-and-evaluate" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">model</span></code> accepts a dictionary path, <code class="docutils literal notranslate"><span class="pre">Path</span></code> or native <code class="docutils literal notranslate"><span class="pre">DictionaryDomain</span></code>.
+The unique root dictionary, or the only dictionary, is selected automatically.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="khiops_duckdb.core.deploy_model">
+<span class="sig-name descname"><span class="pre">deploy_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#khiops_duckdb.core.deploy_model" title="Link to this definition">¶</a></dt>
+<dd><p>Apply a saved predictor, recoder or other native deployment dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model</strong> – Model dictionary returned by training.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Deployed table path (TSV by default).</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="n">deploy_model</span><span class="p">(</span>
+    <span class="s2">"test.parquet"</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="s2">"results/predict"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="khiops_duckdb.core.evaluate_predictor">
+<span class="sig-name descname"><span class="pre">evaluate_predictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#khiops_duckdb.core.evaluate_predictor" title="Link to this definition">¶</a></dt>
+<dd><p>Evaluate a trained predictor on labeled data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model</strong> – Predictor dictionary.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Evaluation report path (<code class="docutils literal notranslate"><span class="pre">.khj</span></code>).</p>
+</dd>
+</dl>
+<p>The source must contain the target column. <code class="docutils literal notranslate"><span class="pre">dictionary_name</span></code> also accepts
+the native spelling <code class="docutils literal notranslate"><span class="pre">train_dictionary_name</span></code> for this function.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="khiops_duckdb.core.deploy_predictor_for_metrics">
+<span class="sig-name descname"><span class="pre">deploy_predictor_for_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#khiops_duckdb.core.deploy_predictor_for_metrics" title="Link to this definition">¶</a></dt>
+<dd><p>Export predictor output columns for metric computation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Metrics table path.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="khiops_duckdb.core.deploy_coclustering">
+<span class="sig-name descname"><span class="pre">deploy_coclustering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">coclustering_file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_variable_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deployed_variable_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#khiops_duckdb.core.deploy_coclustering" title="Link to this definition">¶</a></dt>
+<dd><p>Apply a trained coclustering and create its deployment dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coclustering_file_path</strong> – Coclustering report produced by training.</p></li>
+<li><p><strong>key_variable_names</strong> – Names of the categorical key columns.</p></li>
+<li><p><strong>deployed_variable_name</strong> – Coclustering variable to deploy.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">(deployed_table_path,</span> <span class="pre">deployment_dictionary_path)</span></code>.</p>
+</dd>
+</dl>
+<p>Input must be sorted lexically by the key variables. Use a sorted DuckDB
+relation for repeated observations; do not declare a unique main-table key.
+This task does not accept additional tables.</p>
+</dd></dl>
+
+</section>
+<section id="inspect-and-prepare-tables">
+<span id="api-tables"></span><h2>Inspect and prepare tables<a class="headerlink" href="#inspect-and-prepare-tables" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="khiops_duckdb.core.build_dictionary_from_data_table">
+<span class="sig-name descname"><span class="pre">build_dictionary_from_data_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dictionary_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'main_table'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#khiops_duckdb.core.build_dictionary_from_data_table" title="Link to this definition">¶</a></dt>
+<dd><p>Ask Khiops to infer a dictionary from the exported table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary file path (<code class="docutils literal notranslate"><span class="pre">.kdic</span></code>).</p>
+</dd>
+</dl>
+<p>This native task re-infers the snapshot; source keys and type overrides are
+not a substitute for configuring the resulting dictionary.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="khiops_duckdb.core.check_database">
+<span class="sig-name descname"><span class="pre">check_database</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#khiops_duckdb.core.check_database" title="Link to this definition">¶</a></dt>
+<dd><p>Validate data against a dictionary. Without <code class="docutils literal notranslate"><span class="pre">model</span></code>, use the dictionary
+inferred from the source.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code>. Native validation errors propagate.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="khiops_duckdb.core.sort_data_table">
+<span class="sig-name descname"><span class="pre">sort_data_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_variables</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#khiops_duckdb.core.sort_data_table" title="Link to this definition">¶</a></dt>
+<dd><p>Sort by <code class="docutils literal notranslate"><span class="pre">sort_variables</span></code> or by the supplied dictionary’s keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Sorted table path.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="khiops_duckdb.core.extract_keys_from_data_table">
+<span class="sig-name descname"><span class="pre">extract_keys_from_data_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#khiops_duckdb.core.extract_keys_from_data_table" title="Link to this definition">¶</a></dt>
+<dd><p>Extract key columns from a keyed <code class="docutils literal notranslate"><span class="pre">Source</span></code>/<code class="docutils literal notranslate"><span class="pre">Table</span></code> or native dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Keys table path.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="khiops_duckdb.core.detect_data_table_format">
+<span class="sig-name descname"><span class="pre">detect_data_table_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#khiops_duckdb.core.detect_data_table_format" title="Link to this definition">¶</a></dt>
+<dd><p>Detect the format of the normalized TSV snapshot, not the original source.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">(header_line,</span> <span class="pre">field_separator)</span></code>; values may be <code class="docutils literal notranslate"><span class="pre">None</span></code> when
+detection cannot determine them.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Native APIs without data-table inputs, including dictionary/report readers,
+<code class="docutils literal notranslate"><span class="pre">simplify_coclustering</span></code> and <code class="docutils literal notranslate"><span class="pre">interpret_predictor</span></code>, remain available unchanged
+through <code class="docutils literal notranslate"><span class="pre">khiops_duckdb.core</span></code>.</p>
+</section>
+<section id="advanced-explicit-snapshots">
+<span id="api-advanced"></span><h2>Advanced: explicit snapshots<a class="headerlink" href="#advanced-explicit-snapshots" title="Link to this heading">¶</a></h2>
+<p>Use these objects when you need to reuse a snapshot or edit its dictionary.
+Most workflows should use the high-level functions above.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="khiops_duckdb.Table">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">khiops_duckdb.</span></span><span class="sig-name descname"><span class="pre">Table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">relation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key=()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">types=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entity=False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#khiops_duckdb.Table" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">relation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key=()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">types=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entity=False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#khiops_duckdb.Table" title="Link to this definition">¶</a></dt>
 <dd><p>Décrit une table et ses clés de jointure.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -262,7 +592,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="khiops_duckdb.materialize">
-<span class="sig-prename descclassname"><span class="pre">khiops_duckdb.</span></span><span class="sig-name descname"><span class="pre">materialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_table</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_tables</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#khiops_duckdb.materialize" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">materialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_table</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_tables</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#khiops_duckdb.materialize" title="Link to this definition">¶</a></dt>
 <dd><p>Exporte les relations une seule fois vers des fichiers TSV temporaires.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -283,37 +613,27 @@
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>Iterator</em>[<a class="reference internal" href="#khiops_duckdb.Dataset" title="khiops_duckdb.dataset.Dataset"><em>Dataset</em></a>]</p>
+<dd class="field-even"><p><em>Iterator</em>[<em>Dataset</em>]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="khiops_duckdb.Dataset">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">khiops_duckdb.</span></span><span class="sig-name descname"><span class="pre">Dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dictionary_domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_table_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_data_tables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_exports</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dictionary_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'main_table'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#khiops_duckdb.Dataset" title="Link to this definition">¶</a></dt>
-<dd><p>Expose les fichiers et le dictionnaire d’un contexte matérialisé.</p>
-<p>Les fichiers sont supprimés à la sortie du contexte <code class="docutils literal notranslate"><span class="pre">materialize</span></code>.
-Le dictionnaire et les DataFrames déjà chargés restent utilisables.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dictionary_domain</strong> (<em>DictionaryDomain</em>)</p></li>
-<li><p><strong>data_table_path</strong> (<em>str</em>)</p></li>
-<li><p><strong>additional_data_tables</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>)</p></li>
-<li><p><strong>_exports</strong> (<em>Mapping</em><em>[</em><em>str</em><em>, </em><em>_Export</em><em>]</em>)</p></li>
-<li><p><strong>dictionary_name</strong> (<em>str</em>)</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py property">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Dataset</span></span><a class="headerlink" href="#khiops_duckdb.Dataset" title="Link to this definition">¶</a></dt>
+<dd><p>Returned by <code class="docutils literal notranslate"><span class="pre">materialize</span></code>; not intended for direct construction.
+<code class="docutils literal notranslate"><span class="pre">dictionary_domain</span></code> exposes the generated dictionary.
+<code class="docutils literal notranslate"><span class="pre">data_table_path</span></code> and <code class="docutils literal notranslate"><span class="pre">additional_data_tables</span></code> expose temporary file paths,
+valid only inside the materialization context.</p>
+<dl class="py attribute">
 <dt class="sig sig-object py" id="khiops_duckdb.Dataset.core_args">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">core_args</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">CoreArguments</span></em><a class="headerlink" href="#khiops_duckdb.Dataset.core_args" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">core_args</span></span><a class="headerlink" href="#khiops_duckdb.Dataset.core_args" title="Link to this definition">¶</a></dt>
 <dd><p>Retourne les arguments natifs de khiops.core, sans wrapper de tâche.</p>
 </dd></dl>
 
-<dl class="py property">
+<dl class="py attribute">
 <dt class="sig sig-object py" id="khiops_duckdb.Dataset.table_args">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">table_args</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">TableArguments</span></em><a class="headerlink" href="#khiops_duckdb.Dataset.table_args" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">table_args</span></span><a class="headerlink" href="#khiops_duckdb.Dataset.table_args" title="Link to this definition">¶</a></dt>
 <dd><p>Retourne les arguments des tables, utilisables avec un modèle existant.</p>
 </dd></dl>
 
@@ -338,29 +658,39 @@ Les dates et heures restent des chaînes.</p>
 </dd></dl>
 
 </section>
+<section id="further-reading">
+<h2>Further reading<a class="headerlink" href="#further-reading" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="semantics.html">Data semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sklearn/index.html">Scikit-learn</a></li>
+</ul>
+</div>
+</section>
+</section>
 
         </article>
       </div>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="demo.html">
+          <a class="next-page" href="semantics.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">DuckDB to Khiops</div>
+                <div class="title">Data semantics</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="semantics.html">
+          <a class="prev-page" href="demo.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Data semantics</div>
+                <div class="title">Train from Parquet</div>
                 
               </div>
             </a>
@@ -394,7 +724,35 @@ Les dates et heures restent des chaînes.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">API</a><ul>
+<li><a class="reference internal" href="#">API reference</a><ul>
+<li><a class="reference internal" href="#shared-arguments">Shared arguments</a></li>
+<li><a class="reference internal" href="#configure-a-source">Configure a source</a><ul>
+<li><a class="reference internal" href="#khiops_duckdb.Source"><code class="docutils literal notranslate"><span class="pre">Source</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#train-models">Train models</a><ul>
+<li><a class="reference internal" href="#khiops_duckdb.core.train_predictor"><code class="docutils literal notranslate"><span class="pre">train_predictor()</span></code></a></li>
+<li><a class="reference internal" href="#khiops_duckdb.core.train_recoder"><code class="docutils literal notranslate"><span class="pre">train_recoder()</span></code></a></li>
+<li><a class="reference internal" href="#khiops_duckdb.core.train_coclustering"><code class="docutils literal notranslate"><span class="pre">train_coclustering()</span></code></a></li>
+<li><a class="reference internal" href="#khiops_duckdb.core.train_instance_variable_coclustering"><code class="docutils literal notranslate"><span class="pre">train_instance_variable_coclustering()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#predict-and-evaluate">Predict and evaluate</a><ul>
+<li><a class="reference internal" href="#khiops_duckdb.core.deploy_model"><code class="docutils literal notranslate"><span class="pre">deploy_model()</span></code></a></li>
+<li><a class="reference internal" href="#khiops_duckdb.core.evaluate_predictor"><code class="docutils literal notranslate"><span class="pre">evaluate_predictor()</span></code></a></li>
+<li><a class="reference internal" href="#khiops_duckdb.core.deploy_predictor_for_metrics"><code class="docutils literal notranslate"><span class="pre">deploy_predictor_for_metrics()</span></code></a></li>
+<li><a class="reference internal" href="#khiops_duckdb.core.deploy_coclustering"><code class="docutils literal notranslate"><span class="pre">deploy_coclustering()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#inspect-and-prepare-tables">Inspect and prepare tables</a><ul>
+<li><a class="reference internal" href="#khiops_duckdb.core.build_dictionary_from_data_table"><code class="docutils literal notranslate"><span class="pre">build_dictionary_from_data_table()</span></code></a></li>
+<li><a class="reference internal" href="#khiops_duckdb.core.check_database"><code class="docutils literal notranslate"><span class="pre">check_database()</span></code></a></li>
+<li><a class="reference internal" href="#khiops_duckdb.core.sort_data_table"><code class="docutils literal notranslate"><span class="pre">sort_data_table()</span></code></a></li>
+<li><a class="reference internal" href="#khiops_duckdb.core.extract_keys_from_data_table"><code class="docutils literal notranslate"><span class="pre">extract_keys_from_data_table()</span></code></a></li>
+<li><a class="reference internal" href="#khiops_duckdb.core.detect_data_table_format"><code class="docutils literal notranslate"><span class="pre">detect_data_table_format()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#advanced-explicit-snapshots">Advanced: explicit snapshots</a><ul>
 <li><a class="reference internal" href="#khiops_duckdb.Table"><code class="docutils literal notranslate"><span class="pre">Table</span></code></a></li>
 <li><a class="reference internal" href="#khiops_duckdb.materialize"><code class="docutils literal notranslate"><span class="pre">materialize()</span></code></a></li>
 <li><a class="reference internal" href="#khiops_duckdb.Dataset"><code class="docutils literal notranslate"><span class="pre">Dataset</span></code></a><ul>
@@ -403,6 +761,9 @@ Les dates et heures restent des chaînes.</p>
 <li><a class="reference internal" href="#khiops_duckdb.Dataset.to_sklearn"><code class="docutils literal notranslate"><span class="pre">Dataset.to_sklearn()</span></code></a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li><a class="reference internal" href="#further-reading">Further reading</a></li>
 </ul>
 </li>
 </ul>
