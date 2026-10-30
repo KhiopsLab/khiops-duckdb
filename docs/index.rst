@@ -1,26 +1,83 @@
 Khiops DuckDB
 =============
 
-DuckDB 2.x sources, native Khiops workflows.
+.. rst-class:: hero-tagline
 
-.. image:: images/architecture.svg
-   :alt: DuckDB sources flow through a relation into Khiops files or DataFrames.
+   Your data. One call. A trained model.
 
-``materialize`` accepts relations from your existing DuckDB connection. It does
-not maintain a connector list, manage credentials, or modify Khiops.
+Go from files or SQL to a Khiops model, without writing export scripts or
+collecting a full pandas DataFrame.
 
-Install from GitHub until the first PyPI release:
+.. rst-class:: source-tags
 
-.. code-block:: bash
+   ``Parquet`` ``CSV`` ``JSON`` ``SQL`` ``Multiple tables``
 
-   uv pip install "git+https://github.com/KhiopsLab/khiops-duckdb.git"
+.. container:: quickstart-panel
+
+   .. rubric:: Start with a file
+
+   .. code-block:: python
+
+      from khiops_duckdb import train_predictor
+
+      report, model = train_predictor(
+          "data.parquet", target="target", output_dir="results",
+      )
+
+   You choose the target. We handle scalar schema inference, the dictionary and
+   temporary files. Your model and report stay in ``results/``.
+
+.. rst-class:: action-links
+
+   :doc:`Train and predict <core/index>`
+   :doc:`Run the notebook <demo>`
+   :doc:`API reference <api>`
+
+.. container:: install-panel
+
+   .. rubric:: Install
+
+   .. code-block:: bash
+
+      uv pip install "git+https://github.com/KhiopsLab/khiops-duckdb.git"
+
+Less plumbing. More modeling.
+------------------------------
+
+.. container:: benefit-grid
+
+   .. container:: benefit-card
+
+      .. rubric:: Skip the export scripts
+
+      Files, SQL results or attached databases: use the same source-first API.
+      Keep your DuckDB queries, extensions and credentials.
+
+   .. container:: benefit-card
+
+      .. rubric:: Skip the pandas detour
+
+      Core tasks stream temporary TSV snapshots instead of collecting a full
+      DataFrame. Budget local disk space, not an extra pandas-sized copy.
+
+   .. container:: benefit-card
+
+      .. rubric:: Use related tables
+
+      Declare the keys between customers and orders. Let Khiops construct
+      relational features instead of flattening everything by hand.
+
+Training is only the beginning. Predict, evaluate, recode or train coclustering
+models through the same interface, with native Khiops options and model formats.
+:doc:`Choose your data source <sources>` or find a
+:ref:`function or class <api-objects>` in the reference.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
+   :caption: Documentation
+   :hidden:
 
    core/index
-   sklearn/index
    sources
-   semantics
-   api
    demo
+   api
