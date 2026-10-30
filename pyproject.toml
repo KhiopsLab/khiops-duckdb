@@ -1,0 +1,83 @@
+[project]
+name = "khiops-duckdb"
+version = "0.1.0"
+description = "Use DuckDB data sources with Khiops."
+readme = "README.md"
+license = "BSD-3-Clause-Clear"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+authors = [{name = "KhiopsLab contributors"}]
+keywords = ["khiops", "duckdb", "automl", "sql", "multi-table"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Typing :: Typed",
+]
+dependencies = [
+    "duckdb>=2.0,<3",
+    "khiops>=11.0.1.1,<12",
+    "pandas>=2.3.3,<4",
+]
+
+[project.urls]
+Homepage = "https://github.com/KhiopsLab/khiops-duckdb"
+Documentation = "https://khiopslab.github.io/khiops-duckdb/"
+Repository = "https://github.com/KhiopsLab/khiops-duckdb"
+Issues = "https://github.com/KhiopsLab/khiops-duckdb/issues"
+Changelog = "https://github.com/KhiopsLab/khiops-duckdb/blob/main/CHANGELOG.md"
+
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+test = ["pytest>=8.3", "pytest-cov>=6", "pytest-xdist>=3.6", "pytest-sugar>=1"]
+lint = [
+    "ruff>=0.9",
+    "mypy>=1.15",
+    "pandas-stubs>=2.3",
+    "bandit>=1.8",
+    "pre-commit>=4.1",
+    "pre-commit-hooks>=5",
+]
+docs = ["sphinx>=8,<9", "furo>=2024.8", "sphinx-copybutton>=0.5", "myst-nb>=1.2"]
+dev = [
+    {include-group = "test"},
+    {include-group = "lint"},
+    {include-group = "docs"},
+]
+
+[tool.pytest.ini_options]
+addopts = "-n 4 --cov=khiops_duckdb --cov-report=term-missing --durations=10"
+testpaths = ["tests"]
+markers = ["integration: runs the Khiops engine or a DuckDB database extension"]
+
+[tool.coverage.run]
+branch = true
+source = ["khiops_duckdb"]
+
+[tool.coverage.report]
+fail_under = 80
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+
+[[tool.mypy.overrides]]
+module = ["khiops.*"]
+ignore_missing_imports = true
+
+[tool.bandit]
+exclude_dirs = ["tests"]
