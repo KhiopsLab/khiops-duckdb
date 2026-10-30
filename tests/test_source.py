@@ -44,7 +44,7 @@ def test_sources_are_read_without_an_explicit_connection(
         relation.df().to_json(path, orient="records", lines=True)
     else:
         contents = relation.df().to_csv(
-            index=False, sep="\t" if format == "tsv" else ","
+            index=False, sep="\t" if format == "tsv" else ",", lineterminator="\n"
         )
         if format == "csv.gz":
             with gzip.open(path, "wt") as stream:
