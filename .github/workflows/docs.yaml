@@ -35,6 +35,7 @@ jobs:
         with:
           name: documentation
           path: docs/_build/html
+          include-hidden-files: true
 
   preview:
     if: >-
@@ -47,6 +48,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      pages: write
     concurrency:
       group: pages
       cancel-in-progress: false
@@ -62,6 +64,11 @@ jobs:
           source-dir: docs/_build/html
           preview-branch: gh-pages
           qr-code: false
+          wait-for-pages-deployment: false
+      - name: Request Pages build
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds"
 
   publish:
     if: >-
@@ -72,6 +79,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pages: write
     concurrency:
       group: pages
       cancel-in-progress: false
@@ -87,3 +95,7 @@ jobs:
           branch: gh-pages
           clean-exclude: pr-preview
           force: false
+      - name: Request Pages build
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds"
