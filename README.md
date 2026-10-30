@@ -107,6 +107,10 @@ uv run sphinx-build -W --keep-going -b html docs docs/_build/html
 uv build
 ```
 
+On Windows, expose Khiops' installed MPI DLLs before running the engine:
+``$env:PATH = "$(Resolve-Path .venv/Library/bin);$env:PATH"`` (PowerShell).
+This is needed for serial execution on low-core machines with Khiops 11.
+
 The SQLite extension is installed before tests; tests themselves use local data.
 CI checks Python 3.11–3.14 and Linux/macOS/Windows. It builds pure-Python wheels,
 documentation and same-repository PR previews. Publishing to PyPI/TestPyPI is
