@@ -9,7 +9,9 @@ Data semantics
   disk for the uncompressed snapshots; they live in a private temporary directory.
 * ``directory=...`` selects an existing parent directory. Only the newly created
   child is removed, on success or failure. Place reports and deployed predictions
-  elsewhere.
+  elsewhere. This option belongs to the low-level ``materialize`` API.
+  High-level core calls automatically separate snapshots from persistent outputs;
+  ``output_dir`` controls outputs, not the snapshot location.
 * Strings, booleans, enums, UUIDs and NULL columns default to ``Categorical``;
   numeric scalars to ``Numerical``; dates/times/timestamps to their Khiops types.
   Timezone-aware timestamps are normalized to UTC without changing the connection.
@@ -28,6 +30,19 @@ Data semantics
   losslessly represented by Khiops' numerical model.
 * Khiops' normal checks and warnings still govern orphan child records,
   model/schema compatibility and learning constraints.
+* Coclustering deployment expects input sorted lexically by its key variables.
+  Supply a sorted DuckDB relation when needed. For repeated observations, pass
+  ``key_variable_names`` to the task rather than declaring a unique main-table
+  key on ``Source``.
+* Use ``target=""`` for unsupervised preparation; predictor training then returns
+  ``None`` for the model path. Recoding defaults to an empty target.
+* Input-format arguments are managed by the bridge. Use
+  ``Source(..., options=...)`` for reader options, not ``header_line`` or
+  ``field_separator`` on a high-level task. Errors propagate.
+* CSV inference happens before Khiops inference: use reader ``dtype`` overrides
+  to preserve leading-zero identifiers or boolean-looking labels.
 
-No source connections are opened, closed or reconfigured by the bridge. Its
-separate local validation connection never handles source credentials.
+``materialize`` never opens, closes or reconfigures source connections. High-level
+file calls open and close a private source connection if none was supplied.
+Caller-owned connections are never closed or reconfigured. The separate local
+validation connection never handles source credentials.

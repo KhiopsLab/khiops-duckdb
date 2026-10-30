@@ -15,3 +15,5 @@ docs/_build/
 .env
 *.duckdb
 *.duckdb.wal
+/sandbox/sample_customers.parquet
+/sandbox/parquet_results/

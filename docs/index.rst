@@ -1,26 +1,24 @@
 Khiops DuckDB
 =============
 
-DuckDB 2.x sources, native Khiops workflows.
-
-.. image:: images/architecture.svg
-   :alt: DuckDB sources flow through a relation into Khiops files or DataFrames.
-
-``materialize`` accepts relations from your existing DuckDB connection. It does
-not maintain a connector list, manage credentials, or modify Khiops.
-
-Install from GitHub until the first PyPI release:
+Train Khiops models directly from Parquet, CSV, JSON, or a DuckDB query.
 
 .. code-block:: bash
 
    uv pip install "git+https://github.com/KhiopsLab/khiops-duckdb.git"
 
+.. code-block:: python
+
+   from khiops_duckdb import train_predictor
+
+   report, model = train_predictor(
+       "data.parquet", target="target", output_dir="results",
+   )
+
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    core/index
-   sklearn/index
    sources
-   semantics
-   api
    demo
+   api

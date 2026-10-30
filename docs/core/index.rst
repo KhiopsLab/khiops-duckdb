@@ -1,55 +1,28 @@
-Native Khiops workflows
-=======================
+Train and predict
+=================
 
-Use the generated dictionary and table arguments directly; there is no separate
-training API to learn. Keep the DuckDB connection open during materialization.
-
-.. code-block:: python
-
-   from pathlib import Path
-   import duckdb
-   import khiops.core as kh
-   from khiops_duckdb import materialize
-
-   with duckdb.connect() as con:
-       source = con.read_csv("observations.csv")
-       with materialize(source) as data:
-           _, model_path = kh.train_predictor(
-               **data.core_args,
-               target_variable="target",
-               analysis_report_file_path=str(Path("report.khj").resolve()),
-           )
-           kh.deploy_model(
-               model_path,
-               "SNB_main_table",
-               **data.table_args,
-               output_data_table_path=str(Path("predictions.tsv").resolve()),
-           )
-
-For unsupervised preparation, use ``target_variable=""``. The same dictionary,
-main file and additional-table mapping can be passed to Khiops' other table-based
-core functions, including coclustering. Functions without common table parameters
-can use ``data.dictionary_domain`` and ``data.data_table_path`` individually.
-
-Multi-table schemas
--------------------
+Train directly from a file, then use the saved model:
 
 .. code-block:: python
 
-   from khiops_duckdb import Table, materialize
+   from khiops_duckdb import deploy_model, evaluate_predictor, train_predictor
 
-   with materialize(
-       Table(con.table("customers"), key=("id",)),
-       additional_tables={
-           "orders": Table(con.table("orders"), key=("id", "order_id")),
-           "orders/items": Table(con.table("items"), key=("id", "order_id")),
-           "profile": Table(con.table("profile"), key=("id",), entity=True),
-       },
-   ) as data:
-       # Add derived variables to data.dictionary_domain, or use data.core_args.
-       ...
+   report, model = train_predictor(
+       "train.parquet", target="target", output_dir="results/train",
+   )
+   predictions = deploy_model(
+       "test.parquet", model=model, output_dir="results/predict",
+   )
+   evaluation = evaluate_predictor(
+       "test.parquet", model=model, output_dir="results/evaluate",
+   )
 
-Each child key starts with its parent's key, using the same column names.
-Main-table and entity keys are unique. A one-to-many table may repeat its key.
-Leaf table names must be globally unique and cannot shadow a parent column.
-Declare all parents; mapping insertion order does not matter.
+Replace ``"target"`` with the column you want to predict.
+The returned values are paths to the saved report, model and output files.
+Without ``output_dir``, each call creates a unique folder in ``khiops-results/``.
+
+Native Khiops options work as keyword arguments, for example ``max_cores=1``.
+The same file-or-relation interface supports recoding, coclustering, and all
+other table-based core tasks; see :doc:`../api`.
+
+For database tables, SQL queries or multiple tables, see :doc:`../sources`.
