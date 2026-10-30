@@ -1,0 +1,56 @@
+repos:
+  - repo: local
+    hooks:
+      - id: check-toml
+        name: TOML
+        entry: check-toml
+        language: system
+        types: [toml]
+      - id: check-yaml
+        name: YAML
+        entry: check-yaml
+        language: system
+        types: [yaml]
+      - id: check-json
+        name: JSON
+        entry: check-json
+        language: system
+        types: [json]
+      - id: check-merge-conflict
+        name: Merge conflicts
+        entry: check-merge-conflict
+        language: system
+      - id: detect-private-key
+        name: Private keys
+        entry: detect-private-key
+        language: system
+      - id: trailing-whitespace
+        name: Trailing whitespace
+        entry: trailing-whitespace-fixer
+        language: system
+      - id: end-of-file-fixer
+        name: Final newline
+        entry: end-of-file-fixer
+        language: system
+      - id: ruff
+        name: Ruff
+        entry: ruff check --fix
+        language: system
+        types_or: [python, pyi]
+      - id: ruff-format
+        name: Ruff format
+        entry: ruff format
+        language: system
+        types_or: [python, pyi]
+      - id: mypy
+        name: Mypy
+        entry: mypy src
+        language: system
+        pass_filenames: false
+        types_or: [python, pyi]
+      - id: copyright
+        name: License copyright
+        entry: python scripts/check-copyright.py
+        language: system
+        pass_filenames: false
+        always_run: true

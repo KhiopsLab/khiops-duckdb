@@ -1,0 +1,94 @@
+name: pip packaging
+on:
+  workflow_dispatch:
+    inputs:
+      python_repository:
+        description: Publish a selected tag (requires a trusted publisher)
+        type: choice
+        default: none
+        options: [none, testpypi, pypi]
+  push:
+    tags: ["v*"]
+  pull_request:
+    paths:
+      - .github/workflows/pack-pip.yaml
+      - pyproject.toml
+      - uv.lock
+      - src/**
+      - scripts/check-base-install.py
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v9.0.0
+        with:
+          version: "0.13.5"
+      - run: uv build --no-sources
+      - uses: actions/upload-artifact@v4
+        with:
+          name: distributions
+          path: dist/*
+          if-no-files-found: error
+
+  test-wheel:
+    needs: build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v9.0.0
+        with:
+          version: "0.13.5"
+          python-version: "3.12"
+      - uses: actions/download-artifact@v4
+        with:
+          name: distributions
+          path: dist
+      - name: Test installed wheel
+        shell: bash
+        run: uv run --isolated --no-project --with "$(echo dist/*.whl)" python scripts/check-base-install.py
+
+  publish-testpypi:
+    if: >-
+      github.event_name == 'workflow_dispatch' &&
+      github.ref_type == 'tag' &&
+      github.repository == 'KhiopsLab/khiops-duckdb' &&
+      inputs.python_repository == 'testpypi'
+    needs: test-wheel
+    runs-on: ubuntu-latest
+    environment: testpypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: distributions
+          path: dist
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+
+  publish-pypi:
+    if: >-
+      github.event_name == 'workflow_dispatch' &&
+      github.ref_type == 'tag' &&
+      github.repository == 'KhiopsLab/khiops-duckdb' &&
+      inputs.python_repository == 'pypi'
+    needs: test-wheel
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: distributions
+          path: dist
+      - uses: pypa/gh-action-pypi-publish@release/v1

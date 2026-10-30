@@ -1,0 +1,60 @@
+name: Lint and Test
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  OPENBLAS_NUM_THREADS: "1"
+  OMP_NUM_THREADS: "1"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v9.0.0
+        with:
+          version: "0.13.5"
+          enable-cache: true
+      - run: uv sync --locked --no-default-groups --group lint
+      - run: uv run --no-sync pre-commit run --all-files
+      - run: uv run --no-sync bandit -q -r src
+
+  test-base-install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v9.0.0
+        with:
+          version: "0.13.5"
+      - run: uv run --isolated --no-project --with . python scripts/check-base-install.py
+
+  test:
+    name: Python ${{ matrix.python }} / ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.12", "3.13", "3.14"]
+        os: [ubuntu-latest]
+        include:
+          - python: "3.12"
+            os: macos-latest
+          - python: "3.12"
+            os: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v9.0.0
+        with:
+          version: "0.13.5"
+          python-version: ${{ matrix.python }}
+          enable-cache: true
+      - run: uv sync --locked --no-default-groups --group test
+      - name: Prepare database extension
+        run: uv run --no-sync python -c "import duckdb; duckdb.connect().install_extension('sqlite')"
+      - run: uv run --no-sync pytest
