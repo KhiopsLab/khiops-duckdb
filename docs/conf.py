@@ -9,6 +9,7 @@ release = package_version("khiops-duckdb")
 version = release
 extensions = [
     "sphinx.ext.autodoc",
+    "sphinx.ext.githubpages",
     "sphinx.ext.napoleon",
     "sphinx_copybutton",
     "myst_nb",
