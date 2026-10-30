@@ -1,6 +1,7 @@
 """Sources DuckDB pour Khiops."""
 
 from khiops_duckdb._schema import KhiopsType
+from khiops_duckdb.cache import remove_dataset
 from khiops_duckdb.core import (
     build_dictionary_from_data_table,
     check_database,
@@ -34,6 +35,7 @@ __all__ = [
     "evaluate_predictor",
     "extract_keys_from_data_table",
     "materialize",
+    "remove_dataset",
     "sort_data_table",
     "train_coclustering",
     "train_instance_variable_coclustering",

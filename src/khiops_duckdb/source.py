@@ -1,66 +1,49 @@
 """Ouverture des sources des API de haut niveau."""
 
-from collections.abc import Iterator, Mapping, Sequence
-from contextlib import ExitStack, contextmanager
-from dataclasses import dataclass, field
+from collections.abc import Mapping
+from contextlib import AbstractContextManager, ExitStack, nullcontext
 from os import PathLike, fspath
 from pathlib import PurePosixPath
-from typing import Any, Literal, TypeAlias
 from urllib.parse import urlsplit
 
 import duckdb
 
-from khiops_duckdb._schema import KhiopsType
-from khiops_duckdb.dataset import Dataset, Table, materialize
-
-FileFormat: TypeAlias = Literal["csv", "json", "parquet"]
-_Data: TypeAlias = str | PathLike[str] | duckdb.DuckDBPyRelation
+from khiops_duckdb.dataset import Dataset, FileFormat, Table, materialize
+from khiops_duckdb.dataset import Source as Source
+from khiops_duckdb.dataset import SourceLike as SourceLike
 
 
-@dataclass(frozen=True)
-class Source:
-    """Décrit une source fichier ou une relation et son schéma Khiops.
-
-    Args:
-        data: Chemin, URL, motif de fichiers ou relation DuckDB.
-        key: Colonnes de clé, dans l'ordre de la hiérarchie.
-        types: Types Khiops à imposer à certaines colonnes.
-        entity: Relation un-à-un avec le parent.
-        format: Format explicite pour les fichiers sans extension reconnue.
-        options: Options transmises au lecteur DuckDB, sans modification.
-    """
-
-    data: _Data
-    key: Sequence[str] = ()
-    types: Mapping[str, KhiopsType] = field(default_factory=dict)
-    entity: bool = False
-    format: FileFormat | None = None
-    options: Mapping[str, Any] = field(default_factory=dict)
-
-
-SourceLike: TypeAlias = _Data | Source | Table
-
-
-@contextmanager
 def _materialize_source(
-    source: SourceLike,
+    source: SourceLike | Dataset,
     *,
     additional_tables: Mapping[str, SourceLike] | None = None,
     connection: duckdb.DuckDBPyConnection | None = None,
-) -> Iterator[Dataset]:
-    with ExitStack() as stack:
-        tables = {"": source, **(additional_tables or {})}
-        if additional_tables and "" in additional_tables:
-            raise ValueError("Additional table data paths cannot be empty.")
-        if connection is None and any(_is_file(value) for value in tables.values()):
-            connection = stack.enter_context(duckdb.connect())
-        resolved = {name: _resolve(value, connection) for name, value in tables.items()}
-        yield stack.enter_context(
-            materialize(
-                resolved.pop(""),
-                additional_tables=resolved,
+) -> AbstractContextManager[Dataset]:
+    if isinstance(source, Dataset):
+        if additional_tables or connection is not None:
+            raise ValueError(
+                "A Dataset already contains its tables. Do not supply "
+                "additional_tables or connection."
             )
-        )
+        source._ensure_available()
+        return nullcontext(source)
+    return materialize(
+        source, additional_tables=additional_tables, connection=connection
+    )
+
+
+def _resolve_tables(
+    source: SourceLike,
+    additional_tables: Mapping[str, SourceLike] | None,
+    connection: duckdb.DuckDBPyConnection | None,
+    stack: ExitStack,
+) -> dict[str, Table]:
+    if additional_tables and "" in additional_tables:
+        raise ValueError("Additional table data paths cannot be empty.")
+    tables = {"": source, **(additional_tables or {})}
+    if connection is None and any(_is_file(value) for value in tables.values()):
+        connection = stack.enter_context(duckdb.connect())
+    return {name: _resolve(value, connection) for name, value in tables.items()}
 
 
 def _is_file(source: SourceLike) -> bool:

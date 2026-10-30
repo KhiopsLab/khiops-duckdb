@@ -1,13 +1,15 @@
 """Contrats des fichiers, types, clés et durées de vie."""
 
 import csv
+import gc
+import weakref
 from pathlib import Path
 
 import duckdb
 import pandas as pd
 import pytest
 
-from khiops_duckdb import Table, materialize
+from khiops_duckdb import Dataset, Source, Table, materialize
 
 
 def read_rows(path: str) -> list[list[str]]:
@@ -263,10 +265,73 @@ def test_main_table_cannot_be_an_entity(connection):
             pytest.fail("Main table entity accepted.")
 
 
-def test_additional_tables_require_table_instances(connection):
-    with pytest.raises(TypeError, match="Table instances"):
+def test_additional_relations_require_explicit_keys(connection):
+    with pytest.raises(ValueError, match="needs a key"):
         with materialize(
             connection.sql("SELECT 1 a"),
             additional_tables={"child": connection.sql("SELECT 1 a")},
         ):
-            pytest.fail("Bare secondary relation accepted.")
+            pytest.fail("An unkeyed secondary relation was accepted.")
+
+
+def test_materialize_returns_a_normal_dataset_with_explicit_close(connection):
+    data = materialize(connection.sql("SELECT 1 AS value"))
+    assert isinstance(data, Dataset)
+    assert Path(data.dictionary_file_path).is_file()
+    assert data.to_sklearn()["main_table"][0].value.tolist() == [1]
+
+    data.close()
+    data.close()
+
+    assert not data.directory.exists()
+    with pytest.raises(FileNotFoundError, match="missing or closed"):
+        data.to_sklearn()
+
+
+@pytest.mark.parametrize("cache_key", [None, "v1"])
+def test_plain_materialization_outlives_the_python_object(
+    connection, tmp_path, cache_key
+):
+    data = materialize(
+        connection.sql("SELECT 1 value"), cache_key=cache_key, cache_dir=tmp_path
+    )
+    reference = weakref.ref(data)
+    paths = [Path(data.data_table_path), Path(data.dictionary_file_path)]
+
+    del data
+    gc.collect()
+
+    assert reference() is None
+    assert all(path.is_file() for path in paths)
+
+
+@pytest.mark.parametrize("options", [{"cache_key": "v1"}, {"cache_dir": "cache"}])
+def test_materialize_rejects_conflicting_directory_options(
+    connection, tmp_path, options
+):
+    with pytest.raises(ValueError, match="directory alone"):
+        materialize(connection.sql("SELECT 1 value"), directory=tmp_path, **options)
+
+
+def test_materialize_requires_a_source_or_cache_key():
+    with pytest.raises(ValueError, match="main_table is required"):
+        materialize()
+
+
+def test_materialize_accepts_the_same_file_and_source_inputs(connection, tmp_path):
+    path = tmp_path / "source.parquet"
+    connection.sql("SELECT '001' id, 'hello' body").write_parquet(str(path))
+    with materialize(Source(path, key=("id",), types={"body": "Text"})) as data:
+        assert data.dictionary_domain.get_dictionary("main_table").key == ["id"]
+        assert (
+            data.dictionary_domain.get_dictionary("main_table")
+            .get_variable("body")
+            .type
+            == "Text"
+        )
+        assert data.to_sklearn()["main_table"][0].id.tolist() == ["001"]
+
+
+def test_invalid_secondary_source_raises_an_explicit_error(connection):
+    with pytest.raises(TypeError, match="Sources must be"):
+        materialize(connection.sql("SELECT '1' id"), additional_tables={"child": 42})

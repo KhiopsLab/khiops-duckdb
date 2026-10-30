@@ -1,6 +1,8 @@
 """API de haut niveau, délégation native et durée de vie des fichiers."""
 
 import inspect
+from contextlib import nullcontext
+from copy import deepcopy
 from functools import wraps
 from pathlib import Path
 
@@ -8,7 +10,7 @@ import khiops.core as kh
 import pytest
 
 import khiops_duckdb
-from khiops_duckdb import Source, Table, core
+from khiops_duckdb import Source, Table, core, materialize
 
 _OPTIONS = {
     "build_dictionary_from_data_table": {},
@@ -177,6 +179,101 @@ def test_native_failure_cleans_snapshots_and_preserves_caller_connection(
 
     assert paths and all(not path.exists() for path in paths)
     assert connection.sql("SELECT 1").fetchall() == [(1,)]
+
+
+@pytest.mark.parametrize("name", _OPTIONS)
+@pytest.mark.parametrize("cached", [False, True])
+@pytest.mark.parametrize("managed", [False, True])
+def test_all_adapters_reuse_caller_datasets_without_closing_them(
+    name, cached, managed, training_relation, monkeypatch, tmp_path
+):
+    if cached:
+        data = materialize(
+            training_relation, cache_key="v1", cache_dir=tmp_path / "cache"
+        )
+    else:
+        data = materialize(training_relation)
+    original = getattr(kh, name)
+    result = object()
+
+    @wraps(original)
+    def native(**kwargs):
+        assert kwargs["data_table_path"] == data.data_table_path
+        return result
+
+    monkeypatch.setattr(kh, name, native)
+    with data if managed else nullcontext(data):
+        assert (
+            getattr(core, name)(data, output_dir=tmp_path / name, **_OPTIONS[name])
+            is result
+        )
+        assert Path(data.data_table_path).is_file()
+    assert Path(data.data_table_path).exists() is not managed
+    data.close()
+    assert not Path(data.data_table_path).exists()
+
+
+def test_native_failure_does_not_delete_a_caller_materialized_dataset(
+    training_relation, monkeypatch, tmp_path
+):
+    data = materialize(training_relation, cache_key="v1", cache_dir=tmp_path)
+    original = kh.train_predictor
+
+    @wraps(original)
+    def native(**kwargs):
+        raise RuntimeError("native failure")
+
+    monkeypatch.setattr(kh, "train_predictor", native)
+    with pytest.raises(RuntimeError, match="native failure"):
+        core.train_predictor(data, target="target", output_dir=tmp_path / "job")
+    assert Path(data.data_table_path).is_file()
+
+
+@pytest.mark.parametrize("option", ["connection", "additional_tables"])
+def test_caller_datasets_reject_extra_table_arguments(
+    option, training_relation, connection, tmp_path
+):
+    with materialize(training_relation) as data:
+        extra = connection if option == "connection" else {"child": training_relation}
+        with pytest.raises(ValueError, match="already contains"):
+            core.train_predictor(
+                data, target="target", output_dir=tmp_path, **{option: extra}
+            )
+
+
+@pytest.mark.integration
+def test_materialized_dataset_supports_custom_kdic_and_keeps_model_outputs(
+    training_relation, tmp_path
+):
+    data = materialize(training_relation, cache_key="v1", cache_dir=tmp_path / "cache")
+    schema = Path(data.dictionary_file_path).read_bytes()
+    custom = kh.DictionaryDomain()
+    dictionary = kh.Dictionary()
+    dictionary.name = "Customers"
+    for variable in data.dictionary_domain.get_dictionary("main_table").variables:
+        dictionary.add_variable(deepcopy(variable))
+    custom.add_dictionary(dictionary)
+    custom_path = tmp_path / "custom.kdic"
+    custom.export_khiops_dictionary_file(str(custom_path))
+    custom_contents = custom_path.read_bytes()
+
+    report, model = core.train_predictor(
+        data,
+        target="target",
+        dictionary_file_path_or_domain=str(custom_path),
+        dictionary_name="Customers",
+        output_dir=tmp_path / "train",
+        max_cores=1,
+    )
+    predictions = core.deploy_model(
+        data, model=model, output_dir=tmp_path / "predict", max_cores=1
+    )
+
+    assert all(Path(path).is_file() for path in (report, model, predictions))
+    assert Path(data.dictionary_file_path).read_bytes() == schema
+    assert Path(data.data_table_path).is_file()
+    assert custom_path.read_bytes() == custom_contents
+    assert len(data.to_sklearn()["main_table"][0]) == 80
 
 
 def test_source_relation_is_executed_only_once(connection, monkeypatch, tmp_path):

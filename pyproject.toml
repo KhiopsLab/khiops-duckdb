@@ -21,6 +21,7 @@ classifiers = [
 ]
 dependencies = [
     "duckdb>=2.0,<3",
+    "filelock>=3.16,<4",
     "khiops>=11.0.1.1,<12",
     "pandas>=2.3.3,<4",
 ]

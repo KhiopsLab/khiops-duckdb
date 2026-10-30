@@ -19,7 +19,7 @@ _Result = TypeVar("_Result", covariant=True)
 class _SourceFunction(Protocol[_Result]):
     def __call__(
         self,
-        source: SourceLike,
+        source: SourceLike | Dataset,
         *,
         additional_tables: Mapping[str, SourceLike] | None = None,
         connection: duckdb.DuckDBPyConnection | None = None,
@@ -60,7 +60,7 @@ _INPUT_OPTIONS = {
 
 def _adapt(name: str, description: str) -> _SourceFunction[_Result]:
     def run(
-        source: SourceLike,
+        source: SourceLike | Dataset,
         *,
         additional_tables: Mapping[str, SourceLike] | None = None,
         connection: duckdb.DuckDBPyConnection | None = None,
@@ -77,12 +77,13 @@ def _adapt(name: str, description: str) -> _SourceFunction[_Result]:
     run.__doc__ = (
         f"{description}\n\n"
         "Args:\n"
-        "    source: Fichier, URL, relation DuckDB, Source ou Table.\n"
+        "    source: Fichier, URL, relation DuckDB, Source, Table ou Dataset.\n"
         "    additional_tables: Sources secondaires par chemin Khiops.\n"
         "    connection: Connexion pour les fichiers et leurs accès distants.\n"
         "    output_dir: Répertoire des sorties générées automatiquement.\n"
         "    **options: Options natives, plus target et model selon la tâche.\n\n"
-        "Les fichiers d'entrée temporaires sont supprimés après l'appel. "
+        "Les fichiers d'entrée créés par l'appel sont supprimés après l'appel. "
+        "Un Dataset fourni par l'appelant reste disponible. "
         "Les sorties restent disponibles. Voir la documentation des workflows "
         "natifs pour les valeurs retournées et les options de chaque tâche."
     )
@@ -91,7 +92,7 @@ def _adapt(name: str, description: str) -> _SourceFunction[_Result]:
 
 def _run(
     name: str,
-    source: SourceLike,
+    source: SourceLike | Dataset,
     additional_tables: Mapping[str, SourceLike] | None,
     connection: duckdb.DuckDBPyConnection | None,
     output_dir: str | PathLike[str] | None,
