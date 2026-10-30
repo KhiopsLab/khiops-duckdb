@@ -1,7 +1,8 @@
 Train and predict
 =================
 
-Train directly from a file, then use the saved model:
+Three calls take you from a data file to a reusable model, predictions and an
+evaluation report. No dictionary file or manual TSV export is needed:
 
 .. code-block:: python
 
@@ -22,6 +23,7 @@ The returned values are paths to the saved report, model and output files.
 Without ``output_dir``, each call creates a unique folder in ``khiops-results/``.
 
 Native Khiops options work as keyword arguments, for example ``max_cores=1``.
+You keep the standard Khiops reports and model files, not a new model format.
 The same file-or-relation interface supports recoding, coclustering, and all
 other table-based core tasks; see :doc:`../api`.
 

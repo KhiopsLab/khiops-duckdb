@@ -4,7 +4,8 @@ Data sources
 Files
 -----
 
-Pass a Parquet, CSV, TSV, JSON or JSONL path. URLs and file globs work too:
+Use paths, URLs or file globs for Parquet, CSV, TSV, JSON and JSONL.
+Switch formats without changing your training code:
 
 .. code-block:: python
 
@@ -27,7 +28,8 @@ For an unknown file extension, specify ``Source(path, format="csv")``.
 Databases and SQL
 -----------------
 
-Pass a relation from your DuckDB connection:
+Filter or join with SQL, then train on the result. No intermediate file to
+manage, and no new connection or credential configuration:
 
 .. code-block:: python
 
@@ -44,7 +46,8 @@ See `DuckDB data import <https://duckdb.org/docs/stable/data/overview.html>`_.
 Multiple tables
 ---------------
 
-Declare the join keys with ``Source``:
+Keep customers and orders as separate tables. Declare their keys with ``Source``
+so Khiops can construct relational features, rather than flattening them yourself:
 
 .. code-block:: python
 

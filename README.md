@@ -6,7 +6,21 @@
 [![Python](https://img.shields.io/badge/python-%3E%3D3.11-blue)](pyproject.toml)
 [![License](https://img.shields.io/badge/license-BSD--3--Clause--Clear-blue)](LICENSE)
 
-Train Khiops models directly from Parquet, CSV, JSON, or a DuckDB query.
+**From Parquet or SQL to a trained Khiops model in one call.**
+
+Point Khiops at your data, choose a target, and get a model and report.
+No manual TSV export or Khiops dictionary setup for ordinary scalar data.
+
+## Why use it?
+
+- **Less data plumbing.** Read Parquet, CSV, JSON or a DuckDB query through the
+  same API. Schema inference and temporary files are handled for you.
+- **No full pandas copy.** Core tasks stream through local snapshots instead of
+  collecting the entire dataset into a DataFrame.
+- **Related tables, not manual flattening.** Declare customer/order keys and let
+  Khiops construct features from the relationships.
+- **Your workflow stays yours.** Reuse your DuckDB connection for SQL, databases
+  and remote access, with native Khiops training options and model formats.
 
 ## Install
 
@@ -14,7 +28,7 @@ Train Khiops models directly from Parquet, CSV, JSON, or a DuckDB query.
 uv pip install "git+https://github.com/KhiopsLab/khiops-duckdb.git"
 ```
 
-## Use
+## Train, predict, evaluate
 
 ```python
 from khiops_duckdb import deploy_model, evaluate_predictor, train_predictor
@@ -49,13 +63,16 @@ with duckdb.connect("warehouse.duckdb", read_only=True) as con:
 ```
 
 Other databases and remote files use your configured DuckDB connection.
-No pandas conversion is needed; temporary TSV files require local disk space.
+You manage access and credentials; the bridge manages temporary data.
+Local disk space is required for TSV snapshots.
 
-[Documentation](https://khiopslab.github.io/khiops-duckdb/) covers multiple tables,
-reader options and the API reference.
-Try the [Parquet notebook](sandbox/train_parquet.ipynb).
+**[Get started](https://khiopslab.github.io/khiops-duckdb/)** or run the
+**[Parquet notebook](sandbox/train_parquet.ipynb)** with self-contained sample data.
+The [source guide](https://khiopslab.github.io/khiops-duckdb/sources.html) covers
+multiple tables and reader options.
 
 ## Develop
+
 ```bash
 uv sync --group dev
 uv run python -c "import duckdb; duckdb.connect().install_extension('sqlite')"
