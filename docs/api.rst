@@ -10,7 +10,7 @@ Import high-level functions from ``khiops_duckdb`` or ``khiops_duckdb.core``.
    :ref:`Training <api-training>`
    :ref:`Deployment <api-deployment>`
    :ref:`Table utilities <api-tables>`
-   :ref:`Advanced <api-advanced>`
+   :ref:`Datasets <api-advanced>`
 
 .. _api-objects:
 
@@ -20,7 +20,8 @@ Shared arguments
 All high-level functions accept:
 
 * ``source``: a path, URL, file glob, DuckDB relation,
-  :class:`~khiops_duckdb.Source` or :class:`~khiops_duckdb.Table`.
+  :class:`~khiops_duckdb.Source`, :class:`~khiops_duckdb.Table` or
+  :class:`~khiops_duckdb.Dataset`.
 * ``connection=None``: an existing DuckDB connection for file readers,
   extensions and credentials. It stays open after the call.
 * ``output_dir=None``: where default output files are saved. Without it, each
@@ -39,7 +40,10 @@ An ambiguous model dictionary needs an explicit ``dictionary_name``.
 Input-format arguments are managed by the bridge; file-reader settings belong
 in :class:`~khiops_duckdb.Source`.
 
-Outputs survive the call; temporary input files do not. Native errors propagate.
+Outputs survive the call. Automatically created input files do not.
+Caller-provided datasets keep their own lifetime; do not pass extra
+``connection`` or ``additional_tables`` arguments with them.
+See :doc:`datasets` for reuse across jobs and launches. Native errors propagate.
 
 .. _api-sources:
 
@@ -204,26 +208,36 @@ through ``khiops_duckdb.core``.
 
 .. _api-advanced:
 
-Advanced: explicit snapshots
------------------------------
+Materialize and reuse data
+--------------------------
 
-Use these objects when you need to reuse a snapshot or edit its dictionary.
-Most workflows should use the high-level functions above.
+``materialize`` returns a ``Dataset`` accepted by every table-based high-level
+task. Use ``with`` for automatic cleanup, or an ordinary call to keep the files.
+Add ``cache_key`` to reuse a named version across launches.
 
 .. autoclass:: khiops_duckdb.Table
 
 .. autofunction:: khiops_duckdb.materialize
 
+.. autofunction:: khiops_duckdb.remove_dataset
+
 .. py:class:: Dataset
 
-   Returned by ``materialize``; not intended for direct construction.
-   ``dictionary_domain`` exposes the generated dictionary.
-   ``data_table_path`` and ``additional_data_tables`` expose temporary file paths,
-   valid only inside the materialization context.
+   Returned by ``materialize``; not intended for direct
+   construction. ``dictionary_domain`` exposes the input dictionary.
+   ``data_table_path`` and ``additional_data_tables`` expose the TSV paths.
+   Files remain valid until ``close``, exit from ``with``, or explicit
+   ``remove_dataset``. This applies to named cache versions too.
+
+   .. autoattribute:: khiops_duckdb.Dataset.directory
+
+   .. autoattribute:: khiops_duckdb.Dataset.dictionary_file_path
 
    .. autoattribute:: khiops_duckdb.Dataset.core_args
 
    .. autoattribute:: khiops_duckdb.Dataset.table_args
+
+   .. automethod:: khiops_duckdb.Dataset.close
 
    .. automethod:: khiops_duckdb.Dataset.to_sklearn
 

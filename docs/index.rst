@@ -79,5 +79,6 @@ models through the same interface, with native Khiops options and model formats.
 
    core/index
    sources
+   datasets
    demo
    api

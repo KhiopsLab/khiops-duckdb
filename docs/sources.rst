@@ -1,6 +1,37 @@
 Data sources
 ============
 
+Supported sources
+-----------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Source
+     - Pass to the API
+   * - Parquet (``.parquet``, ``.pq``)
+     - File path, URL or glob.
+   * - CSV, TSV, TAB, TXT
+     - File path, URL or glob; DuckDB-supported compression.
+   * - JSON, JSONL, NDJSON
+     - File path, URL or glob.
+   * - DuckDB tables and SQL results
+     - ``con.table(...)`` or ``con.sql(...)``.
+   * - SQLite, PostgreSQL, MySQL
+     - Attach with a compatible DuckDB extension, then pass a relation.
+   * - BigQuery
+     - Use the ``bigquery`` community extension; example below.
+   * - HTTP(S), S3, Google Cloud Storage, Azure
+     - Remote file URL and a configured DuckDB connection.
+   * - pandas, Polars, Arrow
+     - Convert to a DuckDB relation first; not accepted directly.
+   * - Materialized ``Dataset``
+     - Pass it directly to reuse its TSV files.
+
+Database/cloud extensions and credentials belong to your DuckDB connection.
+The library does not install connectors or configure cloud identity for you.
+
 Files
 -----
 
@@ -42,6 +73,44 @@ manage, and no new connection or credential configuration:
 Other databases use DuckDB extensions. Configure attachments and credentials on
 your connection first. For remote files, pass it with ``connection=con``.
 See `DuckDB data import <https://duckdb.org/docs/stable/data/overview.html>`_.
+
+BigQuery
+--------
+
+Use `Application Default Credentials
+<https://cloud.google.com/docs/authentication/application-default-credentials>`_
+and grant BigQuery query/read permissions. A compatible build of the
+`BigQuery community extension
+<https://duckdb.org/community_extensions/extensions/bigquery>`_ is required.
+
+.. code-block:: python
+
+   import duckdb
+   from khiops_duckdb import materialize, train_predictor
+
+   with duckdb.connect() as con:
+       con.execute("INSTALL bigquery FROM community")
+       con.execute("LOAD bigquery")
+       source = con.sql("""
+           SELECT customer_id, spend, churn
+           FROM bigquery_query('my-project', $$
+               SELECT customer_id, spend, churn
+               FROM `my-project.analytics.training`
+               WHERE event_date >= DATE '2026-10-01'
+                 AND event_date < DATE '2026-11-01'
+           $$)
+       """)
+       data = materialize(
+           source, cache_key="customers-2026-10", cache_dir="cache",
+       )
+
+   report, model = train_predictor(data, target="churn", output_dir="results")
+
+Replace the project, table and columns. GoogleSQL runs in BigQuery: select only
+needed columns and filter your partition column to control scanned data.
+On later launches, :doc:`reopen the materialized dataset <datasets>` without querying
+BigQuery again. Its ``schema.kdic`` is inferred; ``model`` is the trained
+dictionary. See :doc:`core/index` to supply your own ``.kdic``.
 
 Multiple tables
 ---------------

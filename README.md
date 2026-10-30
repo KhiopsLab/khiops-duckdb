@@ -71,6 +71,23 @@ Local disk space is required for TSV snapshots.
 The [source guide](https://khiopslab.github.io/khiops-duckdb/sources.html) covers
 multiple tables and reader options.
 
+## Reuse data
+
+```python
+from khiops_duckdb import materialize, train_predictor
+
+data = materialize("train.parquet", cache_key="training-v1")
+report, model = train_predictor(data, target="target", output_dir="results")
+```
+
+Reuse the snapshot across jobs and launches. Change `cache_key` when the data
+changes. Use `with materialize(...) as data:` for automatic cleanup on exit,
+or call `data.close()` to remove a retained snapshot explicitly.
+
+See [dataset lifetimes](https://khiopslab.github.io/khiops-duckdb/datasets.html),
+the [BigQuery example](https://khiopslab.github.io/khiops-duckdb/sources.html#bigquery),
+and [custom dictionaries](https://khiopslab.github.io/khiops-duckdb/core/index.html#your-dictionary-optional).
+
 ## Develop
 
 ```bash

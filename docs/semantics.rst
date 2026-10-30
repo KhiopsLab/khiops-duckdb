@@ -6,12 +6,30 @@ Data semantics
   transactional consistency is the caller's responsibility.
 * Core processing streams to TSV without collecting a pandas DataFrame. The
   caller controls DuckDB's memory limit and sorting spill directory. Budget local
-  disk for the uncompressed snapshots; they live in a private temporary directory.
-* ``directory=...`` selects an existing parent directory. Only the newly created
-  child is removed, on success or failure. Place reports and deployed predictions
-  elsewhere. This option belongs to the low-level ``materialize`` API.
+  disk for the uncompressed snapshots. ``materialize`` creates a private directory;
+  with ``cache_key``, it publishes a named version in ``cache_dir``.
+* ``directory=...`` selects an existing parent for a fresh snapshot. ``cache_dir``
+  creates a parent if necessary; with a key, it defaults to ``.khiops-cache``.
+  These options cannot be combined. Place reports and deployed predictions
+  outside the snapshot.
   High-level core calls automatically separate snapshots from persistent outputs;
   ``output_dir`` controls outputs, not the snapshot location.
+* ``materialize`` returns a ``Dataset`` immediately. Ordinary calls retain files
+  even after garbage collection or process exit. ``with`` removes the snapshot
+  on exit; ``close()`` removes it explicitly. Both remove keyed versions too.
+  Failed exports are cleaned up. High-level tasks borrow caller-provided datasets
+  without closing or re-exporting them.
+* A cache key identifies an immutable data version, not a live query.
+  Cache hits do not compare current source data, schemas or reader options.
+  Change the key to refresh. Publication is atomic and serialized per key;
+  abandoned staging directories are removed on the next preparation.
+* Snapshots never expire automatically. Context exit, ``close()`` and
+  ``remove_dataset`` require all readers, including surviving Khiops subprocesses,
+  to have stopped. The per-key lock protects writers, not running readers.
+* Each snapshot contains ``schema.kdic``, an input schema rather than a trained
+  model. Native dictionary options override it per task without changing the
+  cached schema file. Training model dictionaries and reports remain in the
+  job's output directory.
 * Strings, booleans, enums, UUIDs and NULL columns default to ``Categorical``;
   numeric scalars to ``Numerical``; dates/times/timestamps to their Khiops types.
   Timezone-aware timestamps are normalized to UTC without changing the connection.
@@ -42,7 +60,7 @@ Data semantics
 * CSV inference happens before Khiops inference: use reader ``dtype`` overrides
   to preserve leading-zero identifiers or boolean-looking labels.
 
-``materialize`` never opens, closes or reconfigures source connections. High-level
-file calls open and close a private source connection if none was supplied.
-Caller-owned connections are never closed or reconfigured. The separate local
+File inputs open and close a private source connection if none was supplied.
+Caller-owned connections are never closed or reconfigured. Once materialization
+finishes, the snapshot no longer needs its source connection. The separate local
 validation connection never handles source credentials.

@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+- Unified, source-first `materialize` returning a reusable `Dataset`: ordinary
+  calls retain files; `with` removes them on exit.
+- Named `cache_key` versions, atomic cross-process preparation, interrupted-export
+  recovery and explicit removal with `close` or `remove_dataset`.
+- Supported datasource list, BigQuery example and explicit input/model
+  dictionary lifetimes in the user guides.
+
 ## 0.1.0
 
 - Source-first wrappers for all 13 table-consuming Khiops core functions, with

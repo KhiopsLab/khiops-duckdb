@@ -28,3 +28,25 @@ The same file-or-relation interface supports recoding, coclustering, and all
 other table-based core tasks; see :doc:`../api`.
 
 For database tables, SQL queries or multiple tables, see :doc:`../sources`.
+
+Your dictionary (optional)
+--------------------------
+
+Pass your input ``.kdic`` or a ``khiops.core.DictionaryDomain`` explicitly.
+Otherwise, the input schema is inferred.
+
+.. code-block:: python
+
+   report, model = train_predictor(
+       "train.parquet",
+       target="churn",
+       dictionary_file_path_or_domain="input.kdic",
+       dictionary_name="Customers",
+       output_dir="results/train",
+   )
+
+``input.kdic`` is not modified. The returned ``model`` is a **trained**
+``.kdic``: use it for prediction and evaluation, not the generated input schema.
+A materialized dataset's dictionary can be overridden in exactly the same way.
+
+For several jobs on the same data, see :doc:`../datasets`.
