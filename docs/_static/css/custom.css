@@ -1,4 +1,230 @@
 :root {
-  --color-brand-primary: #ff7900;
-  --color-brand-content: #c45000;
+  --orange-brand: #ff7900;
+}
+
+.sidebar-brand {
+  background: #000000;
+  border-bottom: 4px solid var(--orange-brand);
+}
+
+.sidebar-brand-text {
+  color: #ffffff;
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.sidebar-brand:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: -6px;
+}
+
+.mobile-header {
+  border-bottom: 3px solid var(--orange-brand);
+}
+
+h1 {
+  font-size: 2.125rem;
+  font-weight: 700;
+  letter-spacing: -0.0625rem;
+  line-height: 1;
+}
+
+h1::after {
+  background: var(--orange-brand);
+  content: "";
+  display: block;
+  height: 4px;
+  margin-top: 1rem;
+  width: 3rem;
+}
+
+h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  letter-spacing: -0.05rem;
+  line-height: 1.067;
+  margin-top: 2.25rem;
+}
+
+.content {
+  line-height: 1.5;
+}
+
+.content a.reference {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.hero-tagline {
+  color: var(--color-foreground-primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03125rem;
+  line-height: 1.167;
+  margin-bottom: 0.75rem;
+}
+
+.source-tags code {
+  background: var(--color-background-secondary);
+  border: 1px solid var(--color-background-border);
+  border-radius: 0;
+  color: var(--color-foreground-primary);
+  display: inline-block;
+  font-family: inherit;
+  font-size: 0.8rem;
+  margin: 0 0.25rem 0.4rem 0;
+  padding: 0.15rem 0.65rem;
+}
+
+/* Match Furo's container reset specificity to preserve horizontal padding. */
+.content .quickstart-panel,
+.content .install-panel {
+  background: var(--color-background-secondary);
+  border: 1px solid var(--color-background-border);
+  border-radius: 0;
+  margin: 1.5rem 0;
+  min-width: 0;
+  padding: 1rem 1.25rem;
+}
+
+.quickstart-panel .rubric,
+.install-panel .rubric {
+  color: var(--color-foreground-primary);
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+}
+
+.quickstart-panel .highlight,
+.install-panel .highlight {
+  border-radius: 0;
+}
+
+.quickstart-panel p:last-child,
+.install-panel div:last-child {
+  margin-bottom: 0;
+}
+
+.benefit-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  margin: 1.5rem 0;
+}
+
+.content .benefit-card {
+  border: 1px solid var(--color-background-border);
+  border-radius: 0;
+  padding: 1.25rem;
+}
+
+.benefit-card .rubric {
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.75rem;
+}
+
+.benefit-card p:last-child {
+  margin-bottom: 0;
+}
+
+.action-links,
+.api-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.content .action-links a,
+.content .api-nav a {
+  border: 2px solid var(--color-brand-content);
+  border-radius: 0;
+  color: var(--color-brand-content);
+  display: inline-flex;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 0.55rem 0.9rem;
+  text-decoration: none;
+}
+
+.content .action-links a:first-child {
+  background: var(--color-brand-primary);
+  border-color: var(--color-brand-primary);
+  color: #000000;
+}
+
+.content .action-links a:hover,
+.content .api-nav a:hover {
+  background: var(--color-brand-content);
+  border-color: var(--color-brand-content);
+  color: var(--color-background-primary);
+}
+
+.content .api-nav a {
+  padding: 0.3rem 0.8rem;
+}
+
+.content dl.py.function,
+.content dl.py.class {
+  margin: 1.75rem 0 2.5rem;
+}
+
+.content dl.py > dt.sig {
+  background: var(--color-background-secondary);
+  border-left: 3px solid var(--color-brand-primary);
+  border-radius: 0;
+  display: block;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin: 0;
+  overflow-wrap: anywhere;
+  padding: 0.8rem 1rem;
+  white-space: normal;
+}
+
+.content .sig .pre,
+.content .sig .sig-param {
+  white-space: normal;
+}
+
+.content dl.py > dd {
+  margin-left: 0.5rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.field-list dd {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+a:focus-visible {
+  outline: 3px solid var(--color-brand-content);
+  outline-offset: 3px;
+}
+
+@media (max-width: 64rem) {
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 40rem) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.125rem;
+    line-height: 1.111;
+  }
+
+  .benefit-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .content .quickstart-panel,
+  .content .install-panel {
+    padding: 0.8rem;
+  }
 }
