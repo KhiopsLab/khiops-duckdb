@@ -1,0 +1,69 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "intro",
+   "metadata": {},
+   "source": [
+    "# Train from Parquet\n",
+    "\n",
+    "Create a small Parquet file, then train with the high-level API."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "export",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from pathlib import Path\n",
+    "\n",
+    "import duckdb\n",
+    "\n",
+    "workdir = Path(\"_build/demo\")\n",
+    "workdir.mkdir(parents=True, exist_ok=True)\n",
+    "parquet_path = workdir / \"observations.parquet\"\n",
+    "with duckdb.connect() as con:\n",
+    "    con.read_csv(\n",
+    "        \"datasets/observations.csv\",\n",
+    "        dtype={\"id\": \"VARCHAR\", \"target\": \"VARCHAR\"},\n",
+    "    ).write_parquet(str(parquet_path))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "train",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from khiops_duckdb import train_predictor\n",
+    "\n",
+    "report, model = train_predictor(\n",
+    "    parquet_path,\n",
+    "    target=\"target\",\n",
+    "    output_dir=workdir / \"results\",\n",
+    "    max_trees=0,\n",
+    "    max_cores=1,\n",
+    ")\n",
+    "assert Path(report).is_file()\n",
+    "assert model is not None and Path(model).is_file()\n",
+    "{\"report\": report, \"model\": model}"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "name": "python",
+   "version": "3.12"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
