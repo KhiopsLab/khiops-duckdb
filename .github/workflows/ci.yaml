@@ -59,6 +59,4 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: (Resolve-Path .venv/Library/bin).Path >> $env:GITHUB_PATH
-      - name: Prepare database extension
-        run: uv run --no-sync python -c "import duckdb; duckdb.connect().install_extension('sqlite')"
       - run: uv run --no-sync pytest

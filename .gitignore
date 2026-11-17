@@ -17,3 +17,4 @@ docs/_build/
 *.duckdb.wal
 /sandbox/sample_customers.parquet
 /sandbox/parquet_results/
+/sandbox/demo_results/

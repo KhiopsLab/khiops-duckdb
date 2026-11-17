@@ -1,4 +1,4 @@
-"""Configuration de la documentation Sphinx."""
+"""Sphinx documentation configuration."""
 
 from importlib.metadata import version as package_version
 
@@ -12,7 +12,6 @@ extensions = [
     "sphinx.ext.githubpages",
     "sphinx.ext.napoleon",
     "sphinx_copybutton",
-    "myst_nb",
 ]
 html_theme = "furo"
 html_title = "Khiops DuckDB"
@@ -67,7 +66,7 @@ html_theme_options = {
         "font-stack--monospace": "ui-monospace, SFMono-Regular, Consolas, monospace",
     },
 }
-exclude_patterns = ["_build", "**/.ipynb_checkpoints"]
-nb_execution_mode = "force"
+exclude_patterns = ["_build"]
+python_maximum_signature_line_length = 60
 autodoc_typehints = "description"
 add_module_names = False

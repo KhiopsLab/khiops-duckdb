@@ -1,19 +1,23 @@
-"""Vérifie le package installé sans dépendances de développement."""
+"""Check the installed package without development dependencies."""
 
 from importlib.metadata import version
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import duckdb
 
 import khiops_duckdb
-from khiops_duckdb import Table, materialize
+from khiops_duckdb import build_dictionary_from_relation, export_data_table
 
 assert int(version("duckdb").split(".")[0]) == 2
 assert Path(khiops_duckdb.__file__).with_name("py.typed").is_file()
-with duckdb.connect() as connection:
-    source = connection.sql("SELECT '001' id, 2.5 value")
-    with materialize(Table(source, key=("id",))) as data:
-        assert Path(data.data_table_path).is_file()
-        assert data.dictionary_domain.get_dictionary("main_table").key == ["id"]
-        assert data.to_sklearn()["main_table"][0].value.tolist() == [2.5]
-    assert not Path(data.data_table_path).exists()
+with duckdb.connect() as connection, TemporaryDirectory() as directory:
+    relation = connection.sql(
+        "SELECT * FROM (VALUES ('002', 3.5), ('001', 2.5)) t(id, x)"
+    )
+    dictionary_domain = build_dictionary_from_relation(relation, "Customer", key=["id"])
+    data_table_path = export_data_table(
+        relation, Path(directory) / "customers.tsv", dictionary_domain, "Customer"
+    )
+    assert dictionary_domain.get_dictionary("Customer").key == ["id"]
+    assert Path(data_table_path).read_bytes() == b"id\tx\n001\t2.5\n002\t3.5\n"

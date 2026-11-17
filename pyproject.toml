@@ -1,7 +1,7 @@
 [project]
 name = "khiops-duckdb"
-version = "0.1.0"
-description = "Use DuckDB data sources with Khiops."
+version = "0.2.0"
+description = "Export DuckDB relations and build dictionaries for Khiops."
 readme = "README.md"
 license = "BSD-3-Clause-Clear"
 license-files = ["LICENSE"]
@@ -22,7 +22,6 @@ classifiers = [
 dependencies = [
     "duckdb>=2.0,<3",
     "khiops>=11.0.1.1,<12",
-    "pandas>=2.3.3,<4",
 ]
 
 [project.urls]
@@ -32,31 +31,43 @@ Repository = "https://github.com/KhiopsLab/khiops-duckdb"
 Issues = "https://github.com/KhiopsLab/khiops-duckdb/issues"
 Changelog = "https://github.com/KhiopsLab/khiops-duckdb/blob/main/CHANGELOG.md"
 
+[project.optional-dependencies]
+gcp = [
+    "google-cloud-bigquery[bqstorage]>=3.25,<4",
+]
+
 [build-system]
 requires = ["hatchling>=1.27,<2"]
 build-backend = "hatchling.build"
 
 [dependency-groups]
-test = ["pytest>=8.3", "pytest-cov>=6", "pytest-xdist>=3.6", "pytest-sugar>=1"]
+test = [
+    "pytest>=8.3",
+    "pytest-cov>=6",
+    "pytest-xdist>=3.6",
+    "pytest-sugar>=1",
+    "khiops-duckdb[gcp]",
+]
 lint = [
     "ruff>=0.9",
     "mypy>=1.15",
-    "pandas-stubs>=2.3",
     "bandit>=1.8",
     "pre-commit>=4.1",
     "pre-commit-hooks>=5",
 ]
-docs = ["sphinx>=8,<9", "furo>=2024.8", "sphinx-copybutton>=0.5", "myst-nb>=1.2"]
+docs = ["sphinx>=8,<9", "furo>=2024.8", "sphinx-copybutton>=0.5"]
+notebook = ["ipykernel>=6.29"]
 dev = [
     {include-group = "test"},
     {include-group = "lint"},
     {include-group = "docs"},
+    {include-group = "notebook"},
 ]
 
 [tool.pytest.ini_options]
 addopts = "-n 4 --cov=khiops_duckdb --cov-report=term-missing --durations=10"
 testpaths = ["tests"]
-markers = ["integration: runs the Khiops engine or a DuckDB database extension"]
+markers = ["integration: runs the Khiops engine"]
 
 [tool.coverage.run]
 branch = true
@@ -76,7 +87,7 @@ python_version = "3.11"
 strict = true
 
 [[tool.mypy.overrides]]
-module = ["khiops.*"]
+module = ["khiops.*", "google.*", "pyarrow.*"]
 ignore_missing_imports = true
 
 [tool.bandit]

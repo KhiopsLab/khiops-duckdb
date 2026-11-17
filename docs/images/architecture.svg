@@ -10,11 +10,10 @@
     <text x="305" y="97">relation</text>
     <text x="405" y="87">&#8594;</text>
     <rect x="430" y="45" width="150" height="70" rx="6" fill="#fff0e2" stroke="#c45000"/>
-    <text x="505" y="87">materialize</text>
+    <text x="505" y="75">export data table</text>
+    <text x="505" y="97">build dictionary</text>
     <text x="605" y="87">&#8594;</text>
-    <text x="695" y="65">TSV + dictionary</text>
-    <text x="695" y="88">Khiops core</text>
-    <text x="695" y="119">or DataFrames</text>
-    <text x="695" y="142">Khiops sklearn</text>
+    <text x="695" y="75">TSV + dictionary</text>
+    <text x="695" y="97">khiops.core</text>
   </g>
 </svg>

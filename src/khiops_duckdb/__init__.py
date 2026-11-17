@@ -1,42 +1,13 @@
-"""Sources DuckDB pour Khiops."""
+"""DuckDB data tables and dictionaries for Khiops."""
 
 from khiops_duckdb._schema import KhiopsType
-from khiops_duckdb.core import (
-    build_dictionary_from_data_table,
-    check_database,
-    deploy_coclustering,
-    deploy_model,
-    deploy_predictor_for_metrics,
-    detect_data_table_format,
-    evaluate_predictor,
-    extract_keys_from_data_table,
-    sort_data_table,
-    train_coclustering,
-    train_instance_variable_coclustering,
-    train_predictor,
-    train_recoder,
-)
-from khiops_duckdb.dataset import Dataset, Table, materialize
-from khiops_duckdb.source import Source, SourceLike
+from khiops_duckdb.dictionary import build_dictionary_from_relation
+from khiops_duckdb.export import export_data_table
+from khiops_duckdb.gcp import read_bigquery
 
 __all__ = [
-    "Dataset",
     "KhiopsType",
-    "Source",
-    "SourceLike",
-    "Table",
-    "build_dictionary_from_data_table",
-    "check_database",
-    "deploy_coclustering",
-    "deploy_model",
-    "deploy_predictor_for_metrics",
-    "detect_data_table_format",
-    "evaluate_predictor",
-    "extract_keys_from_data_table",
-    "materialize",
-    "sort_data_table",
-    "train_coclustering",
-    "train_instance_variable_coclustering",
-    "train_predictor",
-    "train_recoder",
+    "build_dictionary_from_relation",
+    "export_data_table",
+    "read_bigquery",
 ]

@@ -6,76 +6,59 @@
 [![Python](https://img.shields.io/badge/python-%3E%3D3.11-blue)](pyproject.toml)
 [![License](https://img.shields.io/badge/license-BSD--3--Clause--Clear-blue)](LICENSE)
 
-**From Parquet or SQL to a trained Khiops model in one call.**
+**Run Khiops on any data DuckDB can read.**
 
-Point Khiops at your data, choose a target, and get a model and report.
-No manual TSV export or Khiops dictionary setup for ordinary scalar data.
-
-## Why use it?
-
-- **Less data plumbing.** Read Parquet, CSV, JSON or a DuckDB query through the
-  same API. Schema inference and temporary files are handled for you.
-- **No full pandas copy.** Core tasks stream through local snapshots instead of
-  collecting the entire dataset into a DataFrame.
-- **Related tables, not manual flattening.** Declare customer/order keys and let
-  Khiops construct features from the relationships.
-- **Your workflow stays yours.** Reuse your DuckDB connection for SQL, databases
-  and remote access, with native Khiops training options and model formats.
-
-## Install
+Parquet, CSV, JSON, SQL databases, BigQuery, cloud buckets, DataFrames: if DuckDB
+can query it, Khiops can learn from it. Filter and join in SQL, then train. No
+export script to write, no pandas copy of your data.
 
 ```bash
 uv pip install "git+https://github.com/KhiopsLab/khiops-duckdb.git"
 ```
 
-## Train, predict, evaluate
-
-```python
-from khiops_duckdb import deploy_model, evaluate_predictor, train_predictor
-
-report, model = train_predictor(
-    "data.parquet",
-    target="target",
-    output_dir="results/train",
-)
-predictions = deploy_model(
-    "test.parquet", model=model, output_dir="results/predict",
-)
-evaluation = evaluate_predictor(
-    "test.parquet", model=model, output_dir="results/evaluate",
-)
-```
-
-All 13 table-based core functions accept a file path or DuckDB relation.
-Native Khiops options are passed as keyword arguments. Models, reports and
-predictions stay in `output_dir`; without it, outputs go to a unique folder
-under `khiops-results/`.
-
-## Databases and queries
+## Use
 
 ```python
 import duckdb
+import khiops.core as kh
+from khiops_duckdb import build_dictionary_from_relation, export_data_table
 
-with duckdb.connect("warehouse.duckdb", read_only=True) as con:
-    report, model = train_predictor(
-        con.table("customers"), target="target", output_dir="results",
-    )
+customers = duckdb.sql("FROM 'customers.parquet'")   # any DuckDB source
+
+dictionary_domain = build_dictionary_from_relation(
+    customers, "Customer", output_dictionary_file_path="customer.kdic",
+)
+data_table_path = export_data_table(
+    customers, "customers.tsv", dictionary_domain, "Customer",
+)
+
+report, model = kh.train_predictor(
+    dictionary_domain, "Customer", data_table_path, "churn", "results/report.khj",
+)
+kh.deploy_model(model, "SNB_Customer", data_table_path, "results/scores.tsv")
 ```
 
-Other databases and remote files use your configured DuckDB connection.
-You manage access and credentials; the bridge manages temporary data.
-Local disk space is required for TSV snapshots.
+Two functions, then plain `khiops.core`:
 
-**[Get started](https://khiopslab.github.io/khiops-duckdb/)** or run the
-**[Parquet notebook](sandbox/train_parquet.ipynb)** with self-contained sample data.
-The [source guide](https://khiopslab.github.io/khiops-duckdb/sources.html) covers
-multiple tables and reader options.
+- `build_dictionary_from_relation` drafts the Khiops dictionary from the
+  schema and saves it. On later runs it keeps the file, so you can adjust it
+  by hand.
+- `export_data_table` writes the data table that dictionary describes: only
+  its columns, in its date formats, sorted by its key as Khiops requires.
+
+For BigQuery, install `khiops-duckdb[gcp]` and start from
+`read_bigquery("SELECT ...")`; no DuckDB extension is needed.
+
+The [documentation](https://khiopslab.github.io/khiops-duckdb/) covers
+[data sources](https://khiopslab.github.io/khiops-duckdb/sources.html),
+[the dictionary file](https://khiopslab.github.io/khiops-duckdb/dictionary.html),
+[multiple tables](https://khiopslab.github.io/khiops-duckdb/multitable.html) and
+the [export format](https://khiopslab.github.io/khiops-duckdb/semantics.html).
 
 ## Develop
 
 ```bash
 uv sync --group dev
-uv run python -c "import duckdb; duckdb.connect().install_extension('sqlite')"
 uv run pytest
 uv run sphinx-build -W --keep-going -b html docs docs/_build/html
 ```
