@@ -3,16 +3,15 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Train from Parquet" href="demo.html"><link rel="prev" title="Train and predict" href="core/index.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="The dictionary file" href="dictionary.html"><link rel="prev" title="Khiops DuckDB" href="index.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
         <title>Data sources - Khiops DuckDB</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=ac1e44f2" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=c266d7d1" />
     
     
 
@@ -253,16 +252,12 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="core/index.html">Train and predict</a></li>
+  <ul class="current">
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Data sources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="demo.html">Train from Parquet</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="api.html">API reference</a><input aria-label="Toggle navigation of API reference" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="semantics.html">Data semantics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sklearn/index.html">Scikit-learn</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="dictionary.html">The dictionary file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multitable.html">Multiple tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semantics.html">Export format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
 </ul>
 
 </div>
@@ -307,57 +302,77 @@
         <article role="main" id="furo-main-content">
           <section id="data-sources">
 <h1>Data sources<a class="headerlink" href="#data-sources" title="Link to this heading">¶</a></h1>
-<section id="files">
-<h2>Files<a class="headerlink" href="#files" title="Link to this heading">¶</a></h2>
-<p>Use paths, URLs or file globs for Parquet, CSV, TSV, JSON and JSONL.
-Switch formats without changing your training code:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">khiops_duckdb</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_predictor</span>
-
-<span class="n">report</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">train_predictor</span><span class="p">(</span><span class="s2">"data/*.parquet"</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">"target"</span><span class="p">)</span>
-</pre></div>
+<p>Both functions take a DuckDB relation. Extensions and credentials belong to your
+DuckDB connection.</p>
+<div class="table-wrapper colwidths-given docutils container">
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Source</p></th>
+<th class="head"><p>How to get a relation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Parquet, CSV, JSON</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">con.read_parquet(...)</span></code>, <code class="docutils literal notranslate"><span class="pre">con.read_csv(...)</span></code>, <code class="docutils literal notranslate"><span class="pre">con.read_json(...)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>DuckDB tables and SQL results</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">con.table(...)</span></code> or <code class="docutils literal notranslate"><span class="pre">con.sql(...)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>SQLite, PostgreSQL, MySQL</p></td>
+<td><p>Attach with the DuckDB extension, then <code class="docutils literal notranslate"><span class="pre">con.sql(...)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>pandas, Polars, Arrow</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">con.from_df(frame)</span></code> or <code class="docutils literal notranslate"><span class="pre">con.from_arrow(table)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>BigQuery</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">read_bigquery(...)</span></code>, below</p></td>
+</tr>
+</tbody>
+</table>
 </div>
-<p>Use <code class="docutils literal notranslate"><span class="pre">Source</span></code> for reader options or type overrides. For example, preserve
-leading zeros in a CSV identifier:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">khiops_duckdb</span><span class="w"> </span><span class="kn">import</span> <span class="n">Source</span>
-
-<span class="n">source</span> <span class="o">=</span> <span class="n">Source</span><span class="p">(</span><span class="s2">"data.csv"</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">"dtype"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"id"</span><span class="p">:</span> <span class="s2">"VARCHAR"</span><span class="p">}})</span>
-<span class="n">report</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">train_predictor</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">"target"</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>For an unknown file extension, specify <code class="docutils literal notranslate"><span class="pre">Source(path,</span> <span class="pre">format=&quot;csv&quot;)</span></code>.</p>
+<section id="good-to-know">
+<h2>Good to know<a class="headerlink" href="#good-to-know" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>CSV types are inferred by DuckDB. Keep identifiers as text with
+<code class="docutils literal notranslate"><span class="pre">con.read_csv(&quot;data.csv&quot;,</span> <span class="pre">dtype={&quot;id&quot;:</span> <span class="pre">&quot;VARCHAR&quot;})</span></code>.</p></li>
+<li><p>Each export runs the query again. For an expensive query, materialize it
+first with <code class="docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">TEMP</span> <span class="pre">TABLE</span> <span class="pre">...</span> <span class="pre">AS</span></code> and pass <code class="docutils literal notranslate"><span class="pre">con.table(...)</span></code>.</p></li>
+</ul>
 </section>
-<section id="databases-and-sql">
-<h2>Databases and SQL<a class="headerlink" href="#databases-and-sql" title="Link to this heading">¶</a></h2>
-<p>Filter or join with SQL, then train on the result. No intermediate file to
-manage, and no new connection or credential configuration:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">duckdb</span>
-
-<span class="k">with</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"warehouse.duckdb"</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
-    <span class="n">source</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">"SELECT * FROM customers WHERE active"</span><span class="p">)</span>
-    <span class="n">report</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">train_predictor</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">"target"</span><span class="p">)</span>
+<section id="bigquery">
+<span id="id1"></span><h2>BigQuery<a class="headerlink" href="#bigquery" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">read_bigquery</span></code> installs with pip and needs no DuckDB extension, so it works
+where the network blocks extension downloads.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"khiops-duckdb[gcp] @ git+https://github.com/KhiopsLab/khiops-duckdb.git"</span>
 </pre></div>
 </div>
-<p>Other databases use DuckDB extensions. Configure attachments and credentials on
-your connection first. For remote files, pass it with <code class="docutils literal notranslate"><span class="pre">connection=con</span></code>.
-See <a class="reference external" href="https://duckdb.org/docs/stable/data/overview.html">DuckDB data import</a>.</p>
-</section>
-<section id="multiple-tables">
-<h2>Multiple tables<a class="headerlink" href="#multiple-tables" title="Link to this heading">¶</a></h2>
-<p>Keep customers and orders as separate tables. Declare their keys with <code class="docutils literal notranslate"><span class="pre">Source</span></code>
-so Khiops can construct relational features, rather than flattening them yourself:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">report</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">train_predictor</span><span class="p">(</span>
-    <span class="n">Source</span><span class="p">(</span><span class="s2">"customers.parquet"</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,)),</span>
-    <span class="n">additional_tables</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">"orders"</span><span class="p">:</span> <span class="n">Source</span><span class="p">(</span><span class="s2">"orders.parquet"</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="s2">"order_id"</span><span class="p">)),</span>
-    <span class="p">},</span>
-    <span class="n">target</span><span class="o">=</span><span class="s2">"target"</span><span class="p">,</span>
-    <span class="n">output_dir</span><span class="o">=</span><span class="s2">"results"</span><span class="p">,</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">khiops_duckdb</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_bigquery</span>
+
+<span class="n">customers</span> <span class="o">=</span> <span class="n">read_bigquery</span><span class="p">(</span><span class="s2">"""</span>
+<span class="s2">    SELECT customer_id, spend, churn</span>
+<span class="s2">    FROM `my-project.analytics.training`</span>
+<span class="s2">    WHERE event_date &gt;= DATE '2026-10-01'</span>
+<span class="s2">"""</span><span class="p">,</span> <span class="n">connection</span><span class="o">=</span><span class="n">con</span><span class="p">)</span>
+<span class="n">data_table_path</span> <span class="o">=</span> <span class="n">export_data_table</span><span class="p">(</span>
+    <span class="n">customers</span><span class="p">,</span> <span class="s2">"customers.tsv"</span><span class="p">,</span> <span class="n">dictionary_domain</span><span class="p">,</span> <span class="s2">"Customer"</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Child keys start with their parent’s key. Main-table keys must be unique.
-Use <code class="docutils literal notranslate"><span class="pre">entity=True</span></code> for one-to-one tables and paths such as <code class="docutils literal notranslate"><span class="pre">&quot;orders/items&quot;</span></code>
-for nested tables. Not every native task supports multiple tables.</p>
+<ul class="simple">
+<li><p>It uses <a class="reference external" href="https://cloud.google.com/docs/authentication/application-default-credentials">Application Default Credentials</a>
+and their project, or <code class="docutils literal notranslate"><span class="pre">project=&quot;...&quot;</span></code>.</p></li>
+<li><p>The query runs in BigQuery: select only the columns you need and filter the
+partition column.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">connection=con</span></code> puts the result in your connection, where SQL can use it
+by its variable name: <code class="docutils literal notranslate"><span class="pre">con.sql(&quot;FROM</span> <span class="pre">customers</span> <span class="pre">JOIN</span> <span class="pre">orders</span> <span class="pre">USING</span> <span class="pre">(id)&quot;)</span></code>.
+Without it, DuckDB’s default connection is used.</p></li>
+<li><p>The result is streamed and can be read once. To read it several times, store
+it first: <code class="docutils literal notranslate"><span class="pre">customers.create(&quot;customers&quot;)</span></code>, then <code class="docutils literal notranslate"><span class="pre">con.table(&quot;customers&quot;)</span></code>.</p></li>
+</ul>
 </section>
 </section>
 
@@ -366,23 +381,23 @@ for nested tables. Not every native task supports multiple tables.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="demo.html">
+          <a class="next-page" href="dictionary.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Train from Parquet</div>
+                <div class="title">The dictionary file</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="core/index.html">
+          <a class="prev-page" href="index.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Train and predict</div>
+                <div class="title">Home</div>
                 
               </div>
             </a>
@@ -417,9 +432,8 @@ for nested tables. Not every native task supports multiple tables.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Data sources</a><ul>
-<li><a class="reference internal" href="#files">Files</a></li>
-<li><a class="reference internal" href="#databases-and-sql">Databases and SQL</a></li>
-<li><a class="reference internal" href="#multiple-tables">Multiple tables</a></li>
+<li><a class="reference internal" href="#good-to-know">Good to know</a></li>
+<li><a class="reference internal" href="#bigquery">BigQuery</a></li>
 </ul>
 </li>
 </ul>
@@ -431,7 +445,7 @@ for nested tables. Not every native task supports multiple tables.</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=01f34227"></script>
+</div><script src="_static/documentation_options.js?v=938c9ccc"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>

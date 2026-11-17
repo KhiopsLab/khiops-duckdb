@@ -8,9 +8,8 @@
 <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=ac1e44f2" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=c266d7d1" />
     
     
 
@@ -251,16 +250,12 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="core/index.html">Train and predict</a></li>
+  <ul>
 <li class="toctree-l1"><a class="reference internal" href="sources.html">Data sources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="demo.html">Train from Parquet</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="api.html">API reference</a><input aria-label="Toggle navigation of API reference" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="semantics.html">Data semantics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sklearn/index.html">Scikit-learn</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="dictionary.html">The dictionary file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multitable.html">Multiple tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semantics.html">Export format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
 </ul>
 
 </div>
@@ -296,47 +291,13 @@
           
 <section class="genindex-section">
   <h1 id="index">Index</h1>
-  <div class="genindex-jumpbox"><a href="#B"><strong>B</strong></a> | <a href="#C"><strong>C</strong></a> | <a href="#D"><strong>D</strong></a> | <a href="#E"><strong>E</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#T"><strong>T</strong></a></div>
+  <div class="genindex-jumpbox"><a href="#B"><strong>B</strong></a> | <a href="#E"><strong>E</strong></a> | <a href="#K"><strong>K</strong></a> | <a href="#R"><strong>R</strong></a></div>
 </section>
 <section id="B" class="genindex-section">
   <h2>B</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="api.html#khiops_duckdb.core.build_dictionary_from_data_table">build_dictionary_from_data_table() (in module khiops_duckdb.core)</a>
-</li>
-    </ul></td>
-  </tr></table>
-</section>
-
-<section id="C" class="genindex-section">
-  <h2>C</h2>
-  <table style="width: 100%" class="indextable genindextable"><tr>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="api.html#khiops_duckdb.core.check_database">check_database() (in module khiops_duckdb.core)</a>
-</li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="api.html#khiops_duckdb.Dataset.core_args">core_args (Dataset attribute)</a>
-</li>
-    </ul></td>
-  </tr></table>
-</section>
-
-<section id="D" class="genindex-section">
-  <h2>D</h2>
-  <table style="width: 100%" class="indextable genindextable"><tr>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="api.html#khiops_duckdb.Dataset">Dataset (class in khiops_duckdb)</a>
-</li>
-        <li><a href="api.html#khiops_duckdb.core.deploy_coclustering">deploy_coclustering() (in module khiops_duckdb.core)</a>
-</li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="api.html#khiops_duckdb.core.deploy_model">deploy_model() (in module khiops_duckdb.core)</a>
-</li>
-        <li><a href="api.html#khiops_duckdb.core.deploy_predictor_for_metrics">deploy_predictor_for_metrics() (in module khiops_duckdb.core)</a>
-</li>
-        <li><a href="api.html#khiops_duckdb.core.detect_data_table_format">detect_data_table_format() (in module khiops_duckdb.core)</a>
+        <li><a href="api.html#khiops_duckdb.build_dictionary_from_relation">build_dictionary_from_relation() (in module khiops_duckdb)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -346,59 +307,27 @@
   <h2>E</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="api.html#khiops_duckdb.core.evaluate_predictor">evaluate_predictor() (in module khiops_duckdb.core)</a>
-</li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="api.html#khiops_duckdb.core.extract_keys_from_data_table">extract_keys_from_data_table() (in module khiops_duckdb.core)</a>
+        <li><a href="api.html#khiops_duckdb.export_data_table">export_data_table() (in module khiops_duckdb)</a>
 </li>
     </ul></td>
   </tr></table>
 </section>
 
-<section id="M" class="genindex-section">
-  <h2>M</h2>
+<section id="K" class="genindex-section">
+  <h2>K</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="api.html#khiops_duckdb.materialize">materialize() (in module khiops_duckdb)</a>
+        <li><a href="api.html#khiops_duckdb.KhiopsType">khiops_duckdb.KhiopsType (built-in variable)</a>
 </li>
     </ul></td>
   </tr></table>
 </section>
 
-<section id="S" class="genindex-section">
-  <h2>S</h2>
+<section id="R" class="genindex-section">
+  <h2>R</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="api.html#khiops_duckdb.core.sort_data_table">sort_data_table() (in module khiops_duckdb.core)</a>
-</li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="api.html#khiops_duckdb.Source">Source (class in khiops_duckdb)</a>
-</li>
-    </ul></td>
-  </tr></table>
-</section>
-
-<section id="T" class="genindex-section">
-  <h2>T</h2>
-  <table style="width: 100%" class="indextable genindextable"><tr>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="api.html#khiops_duckdb.Table">Table (class in khiops_duckdb)</a>
-</li>
-        <li><a href="api.html#khiops_duckdb.Dataset.table_args">table_args (Dataset attribute)</a>
-</li>
-        <li><a href="api.html#khiops_duckdb.Dataset.to_sklearn">to_sklearn() (Dataset method)</a>
-</li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="api.html#khiops_duckdb.core.train_coclustering">train_coclustering() (in module khiops_duckdb.core)</a>
-</li>
-        <li><a href="api.html#khiops_duckdb.core.train_instance_variable_coclustering">train_instance_variable_coclustering() (in module khiops_duckdb.core)</a>
-</li>
-        <li><a href="api.html#khiops_duckdb.core.train_predictor">train_predictor() (in module khiops_duckdb.core)</a>
-</li>
-        <li><a href="api.html#khiops_duckdb.core.train_recoder">train_recoder() (in module khiops_duckdb.core)</a>
+        <li><a href="api.html#khiops_duckdb.read_bigquery">read_bigquery() (in module khiops_duckdb)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -436,7 +365,7 @@
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=01f34227"></script>
+</div><script src="_static/documentation_options.js?v=938c9ccc"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>

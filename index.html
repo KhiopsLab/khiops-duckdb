@@ -3,16 +3,15 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Train and predict" href="core/index.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Data sources" href="sources.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
         <title>Khiops DuckDB</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=ac1e44f2" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=c266d7d1" />
     
     
 
@@ -253,16 +252,12 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="core/index.html">Train and predict</a></li>
+  <ul>
 <li class="toctree-l1"><a class="reference internal" href="sources.html">Data sources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="demo.html">Train from Parquet</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="api.html">API reference</a><input aria-label="Toggle navigation of API reference" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="semantics.html">Data semantics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sklearn/index.html">Scikit-learn</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="dictionary.html">The dictionary file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multitable.html">Multiple tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semantics.html">Export format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
 </ul>
 
 </div>
@@ -307,54 +302,52 @@
         <article role="main" id="furo-main-content">
           <section id="khiops-duckdb">
 <h1>Khiops DuckDB<a class="headerlink" href="#khiops-duckdb" title="Link to this heading">¶</a></h1>
-<p class="hero-tagline">Your data. One call. A trained model.</p>
-<p>Go from files or SQL to a Khiops model, without writing export scripts or
-collecting a full pandas DataFrame.</p>
-<p class="source-tags"><code class="docutils literal notranslate"><span class="pre">Parquet</span></code> <code class="docutils literal notranslate"><span class="pre">CSV</span></code> <code class="docutils literal notranslate"><span class="pre">JSON</span></code> <code class="docutils literal notranslate"><span class="pre">SQL</span></code> <code class="docutils literal notranslate"><span class="pre">Multiple</span> <span class="pre">tables</span></code></p>
-<div class="quickstart-panel docutils container">
-<p class="rubric">Start with a file</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">khiops_duckdb</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_predictor</span>
-
-<span class="n">report</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">train_predictor</span><span class="p">(</span>
-    <span class="s2">"data.parquet"</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">"target"</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="s2">"results"</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>You choose the target. We handle scalar schema inference, the dictionary and
-temporary files. Your model and report stay in <code class="docutils literal notranslate"><span class="pre">results/</span></code>.</p>
-</div>
-<p class="action-links"><a class="reference internal" href="core/index.html"><span class="doc">Train and predict</span></a>
-<a class="reference internal" href="demo.html"><span class="doc">Run the notebook</span></a>
-<a class="reference internal" href="api.html"><span class="doc">API reference</span></a></p>
-<div class="install-panel docutils container">
-<p class="rubric">Install</p>
+<p class="hero-tagline">Run Khiops on any data DuckDB can read.</p>
+<p class="source-tags"><code class="docutils literal notranslate"><span class="pre">Parquet</span></code> <code class="docutils literal notranslate"><span class="pre">CSV</span></code> <code class="docutils literal notranslate"><span class="pre">JSON</span></code> <code class="docutils literal notranslate"><span class="pre">PostgreSQL</span></code> <code class="docutils literal notranslate"><span class="pre">MySQL</span></code> <code class="docutils literal notranslate"><span class="pre">SQLite</span></code>
+<code class="docutils literal notranslate"><span class="pre">BigQuery</span></code> <code class="docutils literal notranslate"><span class="pre">S3</span></code> <code class="docutils literal notranslate"><span class="pre">GCS</span></code> <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">Polars</span></code> <code class="docutils literal notranslate"><span class="pre">Arrow</span></code></p>
+<p>Files, databases, cloud buckets, DataFrames: if DuckDB can query it, Khiops can
+learn from it. Filter and join in SQL, then train. No export script to write,
+no pandas copy of your data.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"git+https://github.com/KhiopsLab/khiops-duckdb.git"</span>
 </pre></div>
 </div>
+<section id="from-a-source-to-a-model">
+<h2>From a source to a model<a class="headerlink" href="#from-a-source-to-a-model" title="Link to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">duckdb</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">khiops.core</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">kh</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">khiops_duckdb</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_dictionary_from_relation</span><span class="p">,</span> <span class="n">export_data_table</span>
+
+<span class="n">customers</span> <span class="o">=</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">"FROM 'customers.parquet'"</span><span class="p">)</span>   <span class="c1"># any DuckDB source</span>
+
+<span class="n">dictionary_domain</span> <span class="o">=</span> <span class="n">build_dictionary_from_relation</span><span class="p">(</span>
+    <span class="n">customers</span><span class="p">,</span> <span class="s2">"Customer"</span><span class="p">,</span> <span class="n">output_dictionary_file_path</span><span class="o">=</span><span class="s2">"customer.kdic"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">data_table_path</span> <span class="o">=</span> <span class="n">export_data_table</span><span class="p">(</span>
+    <span class="n">customers</span><span class="p">,</span> <span class="s2">"customers.tsv"</span><span class="p">,</span> <span class="n">dictionary_domain</span><span class="p">,</span> <span class="s2">"Customer"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">report</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">kh</span><span class="o">.</span><span class="n">train_predictor</span><span class="p">(</span>
+    <span class="n">dictionary_domain</span><span class="p">,</span> <span class="s2">"Customer"</span><span class="p">,</span> <span class="n">data_table_path</span><span class="p">,</span> <span class="s2">"churn"</span><span class="p">,</span>
+    <span class="s2">"results/report.khj"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">kh</span><span class="o">.</span><span class="n">deploy_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">"SNB_Customer"</span><span class="p">,</span> <span class="n">data_table_path</span><span class="p">,</span> <span class="s2">"results/scores.tsv"</span><span class="p">)</span>
+</pre></div>
 </div>
-<section id="less-plumbing-more-modeling">
-<h2>Less plumbing. More modeling.<a class="headerlink" href="#less-plumbing-more-modeling" title="Link to this heading">¶</a></h2>
-<div class="benefit-grid docutils container">
-<div class="benefit-card docutils container">
-<p class="rubric">Skip the export scripts</p>
-<p>Files, SQL results or attached databases: use the same source-first API.
-Keep your DuckDB queries, extensions and credentials.</p>
-</div>
-<div class="benefit-card docutils container">
-<p class="rubric">Skip the pandas detour</p>
-<p>Core tasks stream temporary TSV snapshots instead of collecting a full
-DataFrame. Budget local disk space, not an extra pandas-sized copy.</p>
-</div>
-<div class="benefit-card docutils container">
-<p class="rubric">Use related tables</p>
-<p>Declare the keys between customers and orders. Let Khiops construct
-relational features instead of flattening everything by hand.</p>
-</div>
-</div>
-<p>Training is only the beginning. Predict, evaluate, recode or train coclustering
-models through the same interface, with native Khiops options and model formats.
-<a class="reference internal" href="sources.html"><span class="doc">Choose your data source</span></a> or find a
-<a class="reference internal" href="api.html#api-objects"><span class="std std-ref">function or class</span></a> in the reference.</p>
+<p>Change one line to change the source: a SQL query, a database table, a bucket.
+See <a class="reference internal" href="sources.html"><span class="doc">Data sources</span></a>.</p>
+</section>
+<section id="two-functions-then-plain-khiops">
+<h2>Two functions, then plain Khiops<a class="headerlink" href="#two-functions-then-plain-khiops" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">build_dictionary_from_relation</span></code> drafts the Khiops dictionary from the
+schema and saves it. On later runs it keeps the file, so you can
+<a class="reference internal" href="dictionary.html"><span class="doc">adjust it by hand</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">export_data_table</span></code> writes the data table that dictionary describes: only
+its columns, in its date formats, sorted by its key as Khiops requires.</p></li>
+</ul>
+<p>Training, deployment and evaluation are <code class="docutils literal notranslate"><span class="pre">khiops.core</span></code>, unchanged.
+Related tables work the same way: see <a class="reference internal" href="multitable.html"><span class="doc">Multiple tables</span></a>.
+For BigQuery, <code class="docutils literal notranslate"><span class="pre">khiops-duckdb[gcp]</span></code> adds <a class="reference internal" href="sources.html#bigquery"><span class="std std-ref">read_bigquery</span></a>.</p>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -365,12 +358,12 @@ models through the same interface, with native Khiops options and model formats.
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="core/index.html">
+          <a class="next-page" href="sources.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Train and predict</div>
+                <div class="title">Data sources</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -406,7 +399,8 @@ models through the same interface, with native Khiops options and model formats.
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Khiops DuckDB</a><ul>
-<li><a class="reference internal" href="#less-plumbing-more-modeling">Less plumbing. More modeling.</a></li>
+<li><a class="reference internal" href="#from-a-source-to-a-model">From a source to a model</a></li>
+<li><a class="reference internal" href="#two-functions-then-plain-khiops">Two functions, then plain Khiops</a></li>
 </ul>
 </li>
 </ul>
@@ -418,7 +412,7 @@ models through the same interface, with native Khiops options and model formats.
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=01f34227"></script>
+</div><script src="_static/documentation_options.js?v=938c9ccc"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>

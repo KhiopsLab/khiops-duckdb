@@ -1,18 +1,17 @@
 <!doctype html>
-<html class="no-js" lang="en" data-content_root="../">
+<html class="no-js" lang="en" data-content_root="./">
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="prev" title="Data semantics" href="../semantics.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Multiple tables" href="multitable.html"><link rel="prev" title="Data sources" href="sources.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
-        <title>Scikit-learn - Khiops DuckDB</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ac1e44f2" />
+        <title>The dictionary file - Khiops DuckDB</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=c266d7d1" />
     
     
 
@@ -224,7 +223,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Khiops DuckDB</div></a>
+      <a href="index.html"><div class="brand">Khiops DuckDB</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -235,7 +234,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
       </label>
     </div>
@@ -243,26 +242,22 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   <span class="sidebar-brand-text">Khiops DuckDB</span>
   
-</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../core/index.html">Train and predict</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../sources.html">Data sources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../demo.html">Train from Parquet</a></li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="../api.html">API reference</a><input aria-label="Toggle navigation of API reference" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../semantics.html">Data semantics</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Scikit-learn</a></li>
-</ul>
-</li>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="sources.html">Data sources</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">The dictionary file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multitable.html">Multiple tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semantics.html">Export format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
 </ul>
 
 </div>
@@ -283,12 +278,12 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="https://github.com/KhiopsLab/khiops-duckdb/blob/main/docs/sklearn/index.rst?plain=true" title="View this page">
+  <a class="muted-link" href="https://github.com/KhiopsLab/khiops-duckdb/blob/main/docs/dictionary.rst?plain=true" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
 </div><div class="edit-this-page">
-  <a class="muted-link" href="https://github.com/KhiopsLab/khiops-duckdb/edit/main/docs/sklearn/index.rst" rel="edit" title="Edit this page">
+  <a class="muted-link" href="https://github.com/KhiopsLab/khiops-duckdb/edit/main/docs/dictionary.rst" rel="edit" title="Edit this page">
     <svg><use href="#svg-pencil"></use></svg>
     <span class="visually-hidden">Edit this page</span>
   </a>
@@ -300,42 +295,84 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="scikit-learn">
-<h1>Scikit-learn<a class="headerlink" href="#scikit-learn" title="Link to this heading">¶</a></h1>
-<p>Khiops 11’s scikit-learn interface accepts DataFrames, not file-backed dataset
-specifications. <code class="docutils literal notranslate"><span class="pre">to_sklearn</span></code> explicitly loads the exported snapshot into memory
-and returns its public dataset specification, without patching Khiops internals.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">khiops.sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">KhiopsClassifier</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">khiops_duckdb</span><span class="w"> </span><span class="kn">import</span> <span class="n">materialize</span>
-
-<span class="k">with</span> <span class="n">materialize</span><span class="p">(</span><span class="n">source</span><span class="p">)</span> <span class="k">as</span> <span class="n">data</span><span class="p">:</span>
-    <span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">to_sklearn</span><span class="p">()</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="s2">"main_table"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"target"</span><span class="p">)</span>
-<span class="n">classifier</span> <span class="o">=</span> <span class="n">KhiopsClassifier</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">predictions</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+          <section id="the-dictionary-file">
+<h1>The dictionary file<a class="headerlink" href="#the-dictionary-file" title="Link to this heading">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">build_dictionary_from_relation</span></code> writes the <code class="docutils literal notranslate"><span class="pre">.kdic</span></code> on the first run and
+keeps it afterwards. Edit it freely: the export follows what it says. To rebuild
+it from the data, pass <code class="docutils literal notranslate"><span class="pre">overwrite=True</span></code> or delete the file.</p>
+<section id="edit-the-dictionary">
+<h2>Edit the dictionary<a class="headerlink" href="#edit-the-dictionary" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper colwidths-given docutils container">
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 42.0%" />
+<col style="width: 58.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Edit in the <code class="docutils literal notranslate"><span class="pre">.kdic</span></code></p></th>
+<th class="head"><p>Effect on the next export</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Delete a variable’s line</p></td>
+<td><p>The column is no longer exported.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Mark a variable <code class="docutils literal notranslate"><span class="pre">Unused</span></code></p></td>
+<td><p>The column is still exported.</p></td>
+</tr>
+<tr class="row-even"><td><p>Change a variable’s type</p></td>
+<td><p>Rejected if Khiops could not read the column as that type.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Declare a <code class="docutils literal notranslate"><span class="pre">DateFormat</span></code>, <code class="docutils literal notranslate"><span class="pre">TimeFormat</span></code> or <code class="docutils literal notranslate"><span class="pre">TimestampFormat</span></code></p></td>
+<td><p>Dates and times are written in that format.</p></td>
+</tr>
+<tr class="row-even"><td><p>Change the key</p></td>
+<td><p>The table is sorted by the new key.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Add a variable computed by a rule</p></td>
+<td><p>Nothing is exported for it.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="train-and-test-split">
+<span id="train-test-split"></span><h2>Train and test split<a class="headerlink" href="#train-and-test-split" title="Link to this heading">¶</a></h2>
+<p>Keep the split column’s line in the <code class="docutils literal notranslate"><span class="pre">.kdic</span></code> and mark it <code class="docutils literal notranslate"><span class="pre">Unused</span></code>. It is
+still exported, so Khiops can select on it without learning from it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">report</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">kh</span><span class="o">.</span><span class="n">train_predictor</span><span class="p">(</span>
+    <span class="n">dictionary_domain</span><span class="p">,</span> <span class="s2">"Customer"</span><span class="p">,</span> <span class="n">data_table_path</span><span class="p">,</span> <span class="s2">"churn"</span><span class="p">,</span>
+    <span class="s2">"results/report.khj"</span><span class="p">,</span>
+    <span class="n">selection_variable</span><span class="o">=</span><span class="s2">"split"</span><span class="p">,</span> <span class="n">selection_value</span><span class="o">=</span><span class="s2">"train"</span><span class="p">,</span>
+    <span class="n">sample_percentage</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>   <span class="c1"># the default keeps only 70% of them</span>
+<span class="p">)</span>
+<span class="n">kh</span><span class="o">.</span><span class="n">evaluate_predictor</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">,</span> <span class="s2">"SNB_Customer"</span><span class="p">,</span> <span class="n">data_table_path</span><span class="p">,</span> <span class="s2">"results/evaluation.khj"</span><span class="p">,</span>
+    <span class="n">selection_variable</span><span class="o">=</span><span class="s2">"split"</span><span class="p">,</span> <span class="n">selection_value</span><span class="o">=</span><span class="s2">"test"</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
-<p>The same specification supports regressors, encoders, and multi-table workflows.
-For coclustering, retain the relevant columns and omit the supervised target.
-Single-table specifications deliberately omit <code class="docutils literal notranslate"><span class="pre">additional_data_tables</span></code>.</p>
-<p>Each call returns independent DataFrames, usable after the context exits.
-Numerical columns become floats; categorical values and keys remain strings,
-including leading zeros and literal <code class="docutils literal notranslate"><span class="pre">NA</span></code> values. Dates and times remain
-strings and are inferred as categorical by Khiops’ DataFrame interface. Core-only
-type overrides such as <code class="docutils literal notranslate"><span class="pre">Text</span></code> do not configure scikit-learn estimators.</p>
-<p>Khiops 11 currently re-infers multi-table prediction keys when reading its output.
-Numeric-looking strings (including leading zeros), booleans and pandas NA tokens
-can therefore change type or value before its merge step. <code class="docutils literal notranslate"><span class="pre">to_sklearn</span></code> detects
-and rejects affected main keys; use the core path to preserve such identifiers,
-or explicitly choose nonnumeric identifiers in your SQL projection. No keys are
-silently rewritten.</p>
-<p>Predictions follow the exported main-table order, which is lexical key order
-for keyed datasets, not necessarily the original source order.</p>
+</section>
+<section id="when-the-data-changes">
+<h2>When the data changes<a class="headerlink" href="#when-the-data-changes" title="Link to this heading">¶</a></h2>
+<p>The export logs what no longer matches the dictionary:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">INFO</span></code>: columns not exported because the dictionary does not store them,
+such as a new column in the data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WARNING</span></code>: dictionary variables without a column. Khiops stops if it
+needs one of them.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
 </section>
 
         </article>
@@ -343,15 +380,23 @@ for keyed datasets, not necessarily the original source order.</p>
       <footer>
         
         <div class="related-pages">
-          
-          <a class="prev-page" href="../semantics.html">
+          <a class="next-page" href="multitable.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Multiple tables</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="sources.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Data semantics</div>
+                <div class="title">Data sources</div>
                 
               </div>
             </a>
@@ -373,17 +418,38 @@ for keyed datasets, not necessarily the original source order.</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">The dictionary file</a><ul>
+<li><a class="reference internal" href="#edit-the-dictionary">Edit the dictionary</a></li>
+<li><a class="reference internal" href="#train-and-test-split">Train and test split</a></li>
+<li><a class="reference internal" href="#when-the-data-changes">When the data changes</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=01f34227"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
+</div><script src="_static/documentation_options.js?v=938c9ccc"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
     </body>
 </html>

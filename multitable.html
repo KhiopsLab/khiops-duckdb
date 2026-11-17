@@ -3,16 +3,15 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="API reference" href="api.html"><link rel="prev" title="Data sources" href="sources.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Export format" href="semantics.html"><link rel="prev" title="The dictionary file" href="dictionary.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
-        <title>Train from Parquet - Khiops DuckDB</title>
+        <title>Multiple tables - Khiops DuckDB</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=ac1e44f2" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=c266d7d1" />
     
     
 
@@ -235,7 +234,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
       </label>
     </div>
@@ -253,16 +252,12 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="core/index.html">Train and predict</a></li>
+  <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="sources.html">Data sources</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Train from Parquet</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="api.html">API reference</a><input aria-label="Toggle navigation of API reference" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="semantics.html">Data semantics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sklearn/index.html">Scikit-learn</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="dictionary.html">The dictionary file</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Multiple tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="semantics.html">Export format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
 </ul>
 
 </div>
@@ -283,12 +278,12 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="https://github.com/KhiopsLab/khiops-duckdb/blob/main/docs/demo.ipynb?plain=true" title="View this page">
+  <a class="muted-link" href="https://github.com/KhiopsLab/khiops-duckdb/blob/main/docs/multitable.rst?plain=true" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
 </div><div class="edit-this-page">
-  <a class="muted-link" href="https://github.com/KhiopsLab/khiops-duckdb/edit/main/docs/demo.ipynb" rel="edit" title="Edit this page">
+  <a class="muted-link" href="https://github.com/KhiopsLab/khiops-duckdb/edit/main/docs/multitable.rst" rel="edit" title="Edit this page">
     <svg><use href="#svg-pencil"></use></svg>
     <span class="visually-hidden">Edit this page</span>
   </a>
@@ -300,66 +295,65 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="train-from-parquet">
-<h1>Train from Parquet<a class="headerlink" href="#train-from-parquet" title="Link to this heading">¶</a></h1>
-<p>Create a small Parquet file, then train with the high-level API.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-
-<span class="kn">import</span><span class="w"> </span><span class="nn">duckdb</span>
-
-<span class="n">workdir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"_build/demo"</span><span class="p">)</span>
-<span class="n">workdir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">parquet_path</span> <span class="o">=</span> <span class="n">workdir</span> <span class="o">/</span> <span class="s2">"observations.parquet"</span>
-<span class="k">with</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
-    <span class="n">con</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-        <span class="s2">"datasets/observations.csv"</span><span class="p">,</span>
-        <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s2">"id"</span><span class="p">:</span> <span class="s2">"VARCHAR"</span><span class="p">,</span> <span class="s2">"target"</span><span class="p">:</span> <span class="s2">"VARCHAR"</span><span class="p">},</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">write_parquet</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">parquet_path</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">khiops_duckdb</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_predictor</span>
-
-<span class="n">report</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">train_predictor</span><span class="p">(</span>
-    <span class="n">parquet_path</span><span class="p">,</span>
-    <span class="n">target</span><span class="o">=</span><span class="s2">"target"</span><span class="p">,</span>
-    <span class="n">output_dir</span><span class="o">=</span><span class="n">workdir</span> <span class="o">/</span> <span class="s2">"results"</span><span class="p">,</span>
-    <span class="n">max_trees</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-    <span class="n">max_cores</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+          <section id="multiple-tables">
+<h1>Multiple tables<a class="headerlink" href="#multiple-tables" title="Link to this heading">¶</a></h1>
+<p>One dictionary call and one export per table, all with the same dictionary
+file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dictionary_file_path</span> <span class="o">=</span> <span class="s2">"schema.kdic"</span>
+<span class="n">build_dictionary_from_relation</span><span class="p">(</span>
+    <span class="n">customers</span><span class="p">,</span> <span class="s2">"Customer"</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="p">[</span><span class="s2">"id"</span><span class="p">],</span>
+    <span class="n">output_dictionary_file_path</span><span class="o">=</span><span class="n">dictionary_file_path</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="k">assert</span> <span class="n">Path</span><span class="p">(</span><span class="n">report</span><span class="p">)</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span>
-<span class="k">assert</span> <span class="n">model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">Path</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span>
-<span class="p">{</span><span class="s2">"report"</span><span class="p">:</span> <span class="n">report</span><span class="p">,</span> <span class="s2">"model"</span><span class="p">:</span> <span class="n">model</span><span class="p">}</span>
+<span class="n">build_dictionary_from_relation</span><span class="p">(</span>
+    <span class="n">orders</span><span class="p">,</span> <span class="s2">"Order"</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="p">[</span><span class="s2">"id"</span><span class="p">,</span> <span class="s2">"order_id"</span><span class="p">],</span> <span class="n">parent_dictionary_name</span><span class="o">=</span><span class="s2">"Customer"</span><span class="p">,</span>
+    <span class="n">output_dictionary_file_path</span><span class="o">=</span><span class="n">dictionary_file_path</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">dictionary_domain</span> <span class="o">=</span> <span class="n">build_dictionary_from_relation</span><span class="p">(</span>
+    <span class="n">address</span><span class="p">,</span> <span class="s2">"Address"</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="p">[</span><span class="s2">"id"</span><span class="p">],</span> <span class="n">parent_dictionary_name</span><span class="o">=</span><span class="s2">"Customer"</span><span class="p">,</span>
+    <span class="n">entity</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">output_dictionary_file_path</span><span class="o">=</span><span class="n">dictionary_file_path</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">relations</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Customer"</span><span class="p">:</span> <span class="n">customers</span><span class="p">,</span> <span class="s2">"Order"</span><span class="p">:</span> <span class="n">orders</span><span class="p">,</span> <span class="s2">"Address"</span><span class="p">:</span> <span class="n">address</span><span class="p">}</span>
+<span class="n">data_table_path</span> <span class="o">=</span> <span class="n">export_data_table</span><span class="p">(</span>
+    <span class="n">customers</span><span class="p">,</span> <span class="s2">"Customer.tsv"</span><span class="p">,</span> <span class="n">dictionary_domain</span><span class="p">,</span> <span class="s2">"Customer"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">additional_data_tables</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">data_path</span> <span class="ow">in</span> <span class="n">dictionary_domain</span><span class="o">.</span><span class="n">extract_data_paths</span><span class="p">(</span><span class="s2">"Customer"</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">dictionary_domain</span><span class="o">.</span><span class="n">get_dictionary_at_data_path</span><span class="p">(</span><span class="n">data_path</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
+    <span class="n">additional_data_tables</span><span class="p">[</span><span class="n">data_path</span><span class="p">]</span> <span class="o">=</span> <span class="n">export_data_table</span><span class="p">(</span>
+        <span class="n">relations</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.tsv"</span><span class="p">,</span> <span class="n">dictionary_domain</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="n">report</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">kh</span><span class="o">.</span><span class="n">train_predictor</span><span class="p">(</span>
+    <span class="n">dictionary_domain</span><span class="p">,</span> <span class="s2">"Customer"</span><span class="p">,</span> <span class="n">data_table_path</span><span class="p">,</span> <span class="s2">"churn"</span><span class="p">,</span>
+    <span class="s2">"results/report.khj"</span><span class="p">,</span> <span class="n">additional_data_tables</span><span class="o">=</span><span class="n">additional_data_tables</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/work/khiops-duckdb/khiops-duckdb/.venv/lib/python3.12/site-packages/khiops/core/internals/runner.py:1136: UserWarning: Sample datasets location does not exist (/home/runner/khiops_data/samples). Execute the kh-download-datasets script or the khiops.tools.download_datasets function to download them.
-  self._initialize_default_samples_dir()
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/runner/work/khiops-duckdb/khiops-duckdb/.venv/lib/python3.12/site-packages/khiops/core/internals/runner.py:827: UserWarning: Khiops ended correctly but there were minor issues:
-Warnings in log:
-Line 4: warning : Classifier Selective Naive Bayes : No informative input variable available
-  warnings.warn(error_msg.rstrip())
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'report': '/home/runner/work/khiops-duckdb/khiops-duckdb/docs/_build/demo/results/report.khj',
- 'model': '/home/runner/work/khiops-duckdb/khiops-duckdb/docs/_build/demo/results/report.model.kdic'}
-</pre></div>
-</div>
-</div>
-</div>
+<section id="rules">
+<h2>Rules<a class="headerlink" href="#rules" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Build parents first. A child key starts with its parent’s key.</p></li>
+<li><p>To rebuild the file, pass <code class="docutils literal notranslate"><span class="pre">overwrite=True</span></code> on the table without a parent.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parent_dictionary_name</span></code> links the table as a <code class="docutils literal notranslate"><span class="pre">Table</span></code>: several records
+per parent record. A table can itself be a parent.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">entity=True</span></code> links it as an <code class="docutils literal notranslate"><span class="pre">Entity</span></code>: at most one record per parent
+record, with the parent’s key.</p></li>
+<li><p>Khiops requires every table that has a key to be sorted by it. The export
+does it when given the dictionary. Without the dictionary the file is
+unsorted, and Khiops stops with <code class="docutils literal notranslate"><span class="pre">Unsorted</span> <span class="pre">record</span></code>.</p></li>
+<li><p>Keys are sorted as text: <code class="docutils literal notranslate"><span class="pre">10</span></code> comes before <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
+<li><p>The loop asks Khiops for the data paths, so the script still works if you
+rename a table variable in the <code class="docutils literal notranslate"><span class="pre">.kdic</span></code>.</p></li>
+<li><p>The export does not check that keys are unique or present.
+<code class="docutils literal notranslate"><span class="pre">kh.check_database</span></code> does.</p></li>
+</ul>
+</section>
 </section>
 
         </article>
@@ -367,23 +361,23 @@ Line 4: warning : Classifier Selective Naive Bayes : No informative input variab
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="api.html">
+          <a class="next-page" href="semantics.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">API reference</div>
+                <div class="title">Export format</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="sources.html">
+          <a class="prev-page" href="dictionary.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Data sources</div>
+                <div class="title">The dictionary file</div>
                 
               </div>
             </a>
@@ -405,13 +399,32 @@ Line 4: warning : Classifier Selective Naive Bayes : No informative input variab
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Multiple tables</a><ul>
+<li><a class="reference internal" href="#rules">Rules</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=01f34227"></script>
+</div><script src="_static/documentation_options.js?v=938c9ccc"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>
