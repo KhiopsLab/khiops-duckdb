@@ -3,82 +3,67 @@ Khiops DuckDB
 
 .. rst-class:: hero-tagline
 
-   Your data. One call. A trained model.
-
-Go from files or SQL to a Khiops model, without writing export scripts or
-collecting a full pandas DataFrame.
+   Run Khiops on any data DuckDB can read.
 
 .. rst-class:: source-tags
 
-   ``Parquet`` ``CSV`` ``JSON`` ``SQL`` ``Multiple tables``
+   ``Parquet`` ``CSV`` ``JSON`` ``PostgreSQL`` ``MySQL`` ``SQLite``
+   ``BigQuery`` ``S3`` ``GCS`` ``pandas`` ``Polars`` ``Arrow``
 
-.. container:: quickstart-panel
+Files, databases, cloud buckets, DataFrames: if DuckDB can query it, Khiops can
+learn from it. Filter and join in SQL, then train. No export script to write,
+no pandas copy of your data.
 
-   .. rubric:: Start with a file
+.. code-block:: bash
 
-   .. code-block:: python
+   uv pip install "git+https://github.com/KhiopsLab/khiops-duckdb.git"
 
-      from khiops_duckdb import train_predictor
+From a source to a model
+------------------------
 
-      report, model = train_predictor(
-          "data.parquet", target="target", output_dir="results",
-      )
+.. code-block:: python
 
-   You choose the target. We handle scalar schema inference, the dictionary and
-   temporary files. Your model and report stay in ``results/``.
+   import duckdb
+   import khiops.core as kh
+   from khiops_duckdb import build_dictionary_from_relation, export_data_table
 
-.. rst-class:: action-links
+   customers = duckdb.sql("FROM 'customers.parquet'")   # any DuckDB source
 
-   :doc:`Train and predict <core/index>`
-   :doc:`Run the notebook <demo>`
-   :doc:`API reference <api>`
+   dictionary_domain = build_dictionary_from_relation(
+       customers, "Customer", output_dictionary_file_path="customer.kdic",
+   )
+   data_table_path = export_data_table(
+       customers, "customers.tsv", dictionary_domain, "Customer",
+   )
 
-.. container:: install-panel
+   report, model = kh.train_predictor(
+       dictionary_domain, "Customer", data_table_path, "churn",
+       "results/report.khj",
+   )
+   kh.deploy_model(model, "SNB_Customer", data_table_path, "results/scores.tsv")
 
-   .. rubric:: Install
+Change one line to change the source: a SQL query, a database table, a bucket.
+See :doc:`sources`.
 
-   .. code-block:: bash
+Two functions, then plain Khiops
+--------------------------------
 
-      uv pip install "git+https://github.com/KhiopsLab/khiops-duckdb.git"
+* ``build_dictionary_from_relation`` drafts the Khiops dictionary from the
+  schema and saves it. On later runs it keeps the file, so you can
+  :doc:`adjust it by hand <dictionary>`.
+* ``export_data_table`` writes the data table that dictionary describes: only
+  its columns, in its date formats, sorted by its key as Khiops requires.
 
-Less plumbing. More modeling.
-------------------------------
-
-.. container:: benefit-grid
-
-   .. container:: benefit-card
-
-      .. rubric:: Skip the export scripts
-
-      Files, SQL results or attached databases: use the same source-first API.
-      Keep your DuckDB queries, extensions and credentials.
-
-   .. container:: benefit-card
-
-      .. rubric:: Skip the pandas detour
-
-      Core tasks stream temporary TSV snapshots instead of collecting a full
-      DataFrame. Budget local disk space, not an extra pandas-sized copy.
-
-   .. container:: benefit-card
-
-      .. rubric:: Use related tables
-
-      Declare the keys between customers and orders. Let Khiops construct
-      relational features instead of flattening everything by hand.
-
-Training is only the beginning. Predict, evaluate, recode or train coclustering
-models through the same interface, with native Khiops options and model formats.
-:doc:`Choose your data source <sources>` or find a
-:ref:`function or class <api-objects>` in the reference.
+Training, deployment and evaluation are ``khiops.core``, unchanged.
+Related tables work the same way: see :doc:`multitable`.
+For BigQuery, ``khiops-duckdb[gcp]`` adds :ref:`read_bigquery <bigquery>`.
 
 .. toctree::
    :maxdepth: 1
-   :caption: Documentation
    :hidden:
 
-   core/index
    sources
-   datasets
-   demo
+   dictionary
+   multitable
+   semantics
    api

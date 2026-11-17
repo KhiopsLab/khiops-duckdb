@@ -1,4 +1,4 @@
-"""Vérifie ou actualise l'année du copyright des contributeurs."""
+"""Check or update the contributors' copyright year."""
 
 import argparse
 import re

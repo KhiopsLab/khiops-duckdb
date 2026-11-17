@@ -7,7 +7,6 @@ htmlcov/
 .pytest_cache/
 .ruff_cache/
 .mypy_cache/
-.khiops-cache/
 .ipynb_checkpoints/
 dist/
 build/
@@ -18,3 +17,4 @@ docs/_build/
 *.duckdb.wal
 /sandbox/sample_customers.parquet
 /sandbox/parquet_results/
+/sandbox/demo_results/
